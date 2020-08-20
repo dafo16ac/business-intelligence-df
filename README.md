@@ -6,3 +6,5 @@ This is the source code of the [web application](https://business-intelligence-d
 The structure of the present repository follows best practices as much as the libraries used allow to avoid bugs (e.g. dash). It is as follows:
 
 The preceding clustering technique has been further explained in a separate notebook (TBD).
+
+For the overview of other projects in my *Portfolio*, please follow this [link](https://github.com/dafo16ac/df_portfolio).
