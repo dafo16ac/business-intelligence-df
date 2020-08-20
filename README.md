@@ -5,12 +5,4 @@ This is the source code of the [web application](https://business-intelligence-d
 
 The structure of the present repository follows best practices as much as the libraries used allow to avoid bugs (e.g. dash). It is as follows:
 
-
-
-
-
-1. The clustering technique will be further explained in a separate notebook.
-
-
-| Col1 | Col2 |
-| ------ | ------ |
+The preceding clustering technique has been further explained in a separate notebook (TBD).
