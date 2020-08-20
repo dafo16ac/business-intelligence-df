@@ -88,7 +88,7 @@ app.layout = html.Div(children=[
     ], className="row"),
 
     html.Div([
-        html.P("Start by choosing the cluster and the time span you want to analyse",
+        html.P("Start by choosing the cluster and the time span you wish to analyse",
                style={'font-size': '22px', 'color': 'white', 'textAlign': 'center', 'font-weight': 'bold'},
                className='one row'),
         html.P("    ", className='one column'),
