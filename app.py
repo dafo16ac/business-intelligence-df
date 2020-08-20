@@ -30,7 +30,14 @@ app.layout = html.Div(children=[
                    'backgroundColor': '#fafafa'}),
 
     dcc.Markdown(dedent(
-        '''developed by [Davide Fogarolo](https://www.linkedin.com/in/davide-fogarolo) (first released in 2019)'''),
+        '''Developed by [Davide Fogarolo](https://www.linkedin.com/in/davide-fogarolo) (first released in 2019)'''),
+        style={'textAlign': 'center',
+               'color': 'black',
+               'fontSize': 12,
+               'backgroundColor': '#fafafa'}),
+
+    dcc.Markdown(dedent(
+        '''Source code at the following [repository](https://github.com/dafo16ac/business-intelligence-df-2.2)'''),
         style={'textAlign': 'center',
                'color': 'black',
                'fontSize': 12,
