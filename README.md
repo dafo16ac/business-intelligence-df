@@ -5,11 +5,13 @@ This is the source code of the [web application](https://business-intelligence-d
 
 The structure of the present repository follows best practices as much as the libraries used allow bug-free code (e.g. dash). It is as follows:
 
+
+```{r test-python, engine='python'}
 |--- main.py
 |--- layout
 |--- data
 	|--- XXXX
-
+```
 
 The preceding clustering technique has been further explained in a separate notebook (TBD).
 
