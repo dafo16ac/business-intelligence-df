@@ -1,6 +1,7 @@
 <h1 align="center"> Web Application </h1>
 <h2 align="center"> Market Segmentation Dashboard </h2>
 
+# OBS: work in progress
 This is the source code of the [web application](https://business-intelligence-davide.herokuapp.com/) I developed to ***showcase*** my dexterity with data science and data engineering practices, such as clustering, production deployment of web appliations, and friendly GUIs.
 
 The structure of the present repository follows best practices as much as the libraries used allow bug-free code (e.g. dash). It is as follows:
