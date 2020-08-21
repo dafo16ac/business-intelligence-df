@@ -19,6 +19,8 @@ The structure of the present repository follows best practices as much as the li
      |_	📃 XXXX
 ```
 
+### 📁 assets 
+
 The preceding clustering technique has been further explained in a separate notebook (TBD).
 
 For an overview of projects in my *Portfolio*, please follow this [link](https://github.com/dafo16ac/df_portfolio).
