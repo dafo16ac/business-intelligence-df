@@ -8,8 +8,13 @@ The structure of the present repository follows best practices as much as the li
 
 ```{r test-python, engine='python'}
 📁
-📃|--- main.py
-📃|--- layout
+📃|--- app.py
+📃|--- settings.py
+📃|--- requirements.txt
+📁|--- assets
+	📃|--- app_layout.css
+	📃|--- favicon.ico
+	📃|--- graph_layouts.py
 📁|--- data
 	📃|--- XXXX
 ```
