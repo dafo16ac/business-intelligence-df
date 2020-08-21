@@ -7,10 +7,11 @@ The structure of the present repository follows best practices as much as the li
 
 
 ```{r test-python, engine='python'}
-|--- main.py
-|--- layout
-|--- data
-	|--- XXXX
+📁
+📃|--- main.py
+📃|--- layout
+📁|--- data
+	📃|--- XXXX
 ```
 
 The preceding clustering technique has been further explained in a separate notebook (TBD).
