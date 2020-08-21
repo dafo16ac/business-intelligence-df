@@ -7,16 +7,16 @@ The structure of the present repository follows best practices as much as the li
 
 
 ```{r test-python, engine='python'}
-📁
-📃|--- app.py
-📃|--- settings.py
-📃|--- requirements.txt
-📁|--- assets
-	📃|--- app_layout.css
-	📃|--- favicon.ico
-	📃|--- graph_layouts.py
-📁|--- data
-	📃|--- XXXX
+📁 business-intelligence-df-2.2
+ |_ 📃 app.py
+ |_ 📃 settings.py
+ |_ 📃 requirements.txt
+ |_ 📁 assets
+     |_	📃 app_layout.css
+     |_	📃 favicon.ico
+     |_	📃 graph_layouts.py
+ |_ 📁 data
+     |_	📃 XXXX
 ```
 
 The preceding clustering technique has been further explained in a separate notebook (TBD).
