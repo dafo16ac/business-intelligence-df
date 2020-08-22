@@ -2,5 +2,6 @@ venv
 *.pyc
 .DS_Store
 .env
-.idea
+.idea/
+__pycache__/
 
