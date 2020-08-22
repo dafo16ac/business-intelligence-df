@@ -1,9 +1,9 @@
 <h1 align="center"> Web Application </h1>
 <h2 align="center"> Market Segmentation Dashboard </h2>
 
-This is the source code of the [web application](https://business-intelligence-davide.herokuapp.com/) I developed to ***showcase*** my dexterity with data science and data engineering practices, such as clustering, production deployment of web applications, and friendly GUIs.
+This is the source code I developed to ***showcase*** my dexterity with Data Science and Data Engineering practices, such as clustering, production deployment of web applications, and friendly GUIs. In fact, I deployed it as [web application](https://business-intelligence-davide.herokuapp.com/) on Heroku.
 
-The structure of the present repository follows best practices as much as the libraries used allow bug-free code (e.g. dash).
+The structure of the present repository follows best practices as long as the libraries used allow bug-free code (e.g. dash).
 
 ### 📃 app.py
 This is the main dash application running on Flask. It also includes callbakcs for the dynamic features of the web application.
