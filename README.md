@@ -16,18 +16,18 @@ Minimum versions of the libraries used, necessary for deployment of the applicat
 
 ### 📁 assets
 ###### |__ 📃 favicon.ico
-Personal logo for the web application tab in the browser.
+Personal logo shown in the browser tab.
 
 ###### |__ 📃 app_layout.css
 CSS style of the webapp.
 
 ###### |__ 📃 graph_layouts.py
-Layout of the tables in ```Class``` to facilitate their generation. Similar technique could be implemented for other charts, allowing further shrinkage of the code length. 
+Layout of the tables. Similar technique could be implemented for other charts, allowing further shrinkage of the code length. 
 
 ### 📁 data
-Scripts in this folder are organized by customers' feature. Each script collects all static graphs - and related variables - that are shown once app.py is launched.
-It also contains the processed dataset with all the customer records.
-Code efficiency of these scripts could be improved by refactoring how variables are generated.
+Scripts in this folder are organized by customers' feature. Each script collects all static graphs - and relative variables - that are shown once app.py is launched.
+It also contains the processed dataset with all the customers' records.
+Code efficiency could be improved by refactoring how variables are generated.
 
 ### Last notes
 The preceding clustering technique has been further explained in a separate notebook (TBD).
