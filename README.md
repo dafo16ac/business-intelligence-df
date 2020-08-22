@@ -14,24 +14,19 @@ It includes settings to be changed depending on whether you are working locally 
 ### 📃 requirements.txt
 Minimum versions of the libraries used, necessary for deployment of the application.
 
+### 📁 data
+Scripts in this folder are organized by customers' feature. Each script generate the graphs - and relative variables - that are shown once ```app.py``` is launched.
+It also contains the processed dataset with all the customers' records.
+Code efficiency could be improved by refactoring how variables are generated.
+
 ### 📁 assets
 📃 favicon.ico: Personal logo shown in the browser tab.
 
 📃 app_layout.css: CSS style of the webapp.
 
-📃 graph_layouts.py: Layout of the tables. Similar technique could be implemented for other charts, allowing further shrinkage of the code length. 
-
-### 📁 data
-Scripts in this folder are organized by customers' feature. Each script collects all static graphs - and relative variables - that are shown once app.py is launched.
-It also contains the processed dataset with all the customers' records.
-Code efficiency could be improved by refactoring how variables are generated.
+📃 graph_layouts.py: Layout of the tables, generated then in ```data``` folder. Similar technique could be implemented for other charts, allowing further shrinkage of the code length. 
 
 ### Last notes
 The preceding clustering technique has been further explained in a separate notebook (TBD).
 
 For an overview of projects in my *Portfolio*, please follow this [link](https://github.com/dafo16ac/df_portfolio).
-
-The action of every agent <br />
-  into the world <br />
-starts <br />
-  from their physical selves. <br />
