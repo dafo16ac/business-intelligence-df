@@ -15,14 +15,11 @@ It includes settings to be changed depending on whether you are working locally 
 Minimum versions of the libraries used, necessary for deployment of the application.
 
 ### 📁 assets
-###### 📃 favicon.ico
-Personal logo shown in the browser tab.
+📃 favicon.ico: Personal logo shown in the browser tab.
 
-###### 📃 app_layout.css
-CSS style of the webapp.
+📃 app_layout.css: CSS style of the webapp.
 
-###### 📃 graph_layouts.py
-Layout of the tables. Similar technique could be implemented for other charts, allowing further shrinkage of the code length. 
+📃 graph_layouts.py: Layout of the tables. Similar technique could be implemented for other charts, allowing further shrinkage of the code length. 
 
 ### 📁 data
 Scripts in this folder are organized by customers' feature. Each script collects all static graphs - and relative variables - that are shown once app.py is launched.
