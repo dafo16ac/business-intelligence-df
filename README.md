@@ -12,9 +12,10 @@ This is the main dash application running on Flask. It also includes callbakcs f
 It includes settings to be changed depending on whether you are working locally or deploying in production, by simply changing the value of the variable *ENV*. The debug variable is particularly important to be set to *false* once in production, due to security concerns. Worth to be noted, this script also includes the code snippet for the PostgreSQL engine, if preferred as alternative. 
 
 ### 📁 data
-Generation of the variables needed in order to visualize different characteristics of the cusotmers in the application. Those could also be improved in terms of code efficiency by refactoring how variables are generated, through loops.
+Generation of the variables needed in order to visualize different characteristics of the cusotmers in the application. 
 Each script collects all the graphs that pertain to the same characteristic. Static graphs that appear once the webapp is launched are generated in these scripts.
-These will be fetched by the main app.py. A similar structure is then used in the callbacks. Moreover, there is the processed dataset with all the customer records.
+These are be fetched by the main app.py. A similar structure is then used in the callbacks. Moreover, there is the processed dataset with all the customer records.
+Code efficiency of these scripts could be improved by refactoring how variables are generated.
 
 ### 📁 assets
 Favicon and CSS style of the webapp.
