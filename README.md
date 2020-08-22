@@ -11,22 +11,23 @@ This is the main dash application running on Flask. It also includes callbakcs f
 ### 📃 settings.py
 It includes settings to be changed depending on whether you are working locally or deploying in production, by simply changing the value of the variable ```ENV```. It automatically sets the ```debug``` variable to ```false``` once in production, due to security concerns. Worth to be noted, this script also includes the code snippet for the PostgreSQL engine, if preferred as alternative. 
 
-### 📁 data
-Generation of the variables needed in order to visualize different characteristics of the cusotmers in the application. 
-Each script collects all the graphs that pertain to the same characteristic. Static graphs that appear once the webapp is launched are generated in these scripts.
-These are be fetched by the main app.py. A similar structure is then used in the callbacks. Moreover, there is the processed dataset with all the customer records.
-Code efficiency of these scripts could be improved by refactoring how variables are generated.
+### 📃 requirements.txt
+Minimum versions of the libraries used, necessary for deployment of the application.
 
 ### 📁 assets
-###### |__ 📃 Favicon 
+###### |__ 📃 favicon.ico
+Personal logo for the web application tab in the browser.
 
-###### |__ 📃 CSS style of the webapp.
+###### |__ 📃 app_layout.css
+CSS style of the webapp.
 
-###### |__ 📃 graph.py
-Classes for tables: OOP for simplifying the generation of the tables, recurrent themes in the app. Similar technique could be implemented for other charts, allowing further shrinkage of the code length. 
+###### |__ 📃 graph_layouts.py
+Layout of the tables in ```Class``` to facilitate their generation. Similar technique could be implemented for other charts, allowing further shrinkage of the code length. 
 
-
-### 📃 requirements.txt
+### 📁 data
+Scripts in this folder are organized by customers' feature. Each script collects all static graphs - and related variables - that are shown once app.py is launched.
+It also contains the processed dataset with all the customer records.
+Code efficiency of these scripts could be improved by refactoring how variables are generated.
 
 ### Last notes
 The preceding clustering technique has been further explained in a separate notebook (TBD).
