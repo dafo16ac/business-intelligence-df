@@ -3,7 +3,7 @@
 
 This is the source code I developed to ***showcase*** my dexterity with Data Science and Data Engineering practices, such as clustering, production deployment of web applications, and friendly GUIs. In fact, I deployed it as [web application](https://business-intelligence-davide.herokuapp.com/) on Heroku. A working alternative is to deploy it on AWS EC2, even though - for this small-scale project - costs would be higher and improvement in performance unimpressive.
 
-The structure of the present repository follows best practices as long as the libraries used allow bug-free code (e.g. dash).
+The structure of the present repository follows best practices as long as the modules used allow bug-free code (e.g. dash).
 
 ### 📃 app.py
 This is the main dash application running on Flask. It also includes callbakcs for the dynamic features of the web application.
