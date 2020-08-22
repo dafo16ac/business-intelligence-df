@@ -1,7 +1,7 @@
 <h1 align="center"> Web Application </h1>
 <h2 align="center"> Market Segmentation Dashboard </h2>
 
-This is the source code I developed to ***showcase*** my dexterity with Data Science and Data Engineering practices, such as clustering, production deployment of web applications, and friendly GUIs. In fact, I deployed it as [web application](https://business-intelligence-davide.herokuapp.com/) on Heroku.
+This is the source code I developed to ***showcase*** my dexterity with Data Science and Data Engineering practices, such as clustering, production deployment of web applications, and friendly GUIs. In fact, I deployed it as [web application](https://business-intelligence-davide.herokuapp.com/) on Heroku. A working alternative is to deploy it on AWS EC2, even though - for this small-scale project - costs are higher and improvement in performance unimpressive.
 
 The structure of the present repository follows best practices as long as the libraries used allow bug-free code (e.g. dash).
 
