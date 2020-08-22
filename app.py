@@ -4,7 +4,7 @@ import dash_core_components as dcc
 from dash.dependencies import Output
 import dash_html_components as html
 
-from data.age_values import *
+from data.age_values import *  # import used in this format because otherwise it won't work, even if it is not best practice
 from data.distr_channel_values import *
 from data.market_segments_values import *
 from data.customer_type_values import *
