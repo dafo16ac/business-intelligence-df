@@ -18,7 +18,11 @@ These are be fetched by the main app.py. A similar structure is then used in the
 Code efficiency of these scripts could be improved by refactoring how variables are generated.
 
 ### 📁 assets
-Favicon and CSS style of the webapp.
+###### |_ 📃 Favicon 
+
+###### |_ 📃 CSS style of the webapp.
+
+###### |_ 📃 graph.py
 Classes for tables: OOP for simplifying the generation of the tables, recurrent themes in the app. Similar technique could be implemented for other charts, allowing further shrinkage of the code length. 
 
 
