@@ -14,6 +14,9 @@ It includes settings to be changed depending on whether you are working locally 
 ### 📃 requirements.txt
 Minimum versions of the libraries used, necessary for deployment of the application.
 
+### 📃 Procfile
+Necessary settings for serving the Flask application.
+
 ### 📁 data
 Scripts in this folder are organized by customers' feature. Each script generate the graphs - and relative variables - that are shown once ```app.py``` is launched.
 It also contains the processed dataset with all the customers' records.
