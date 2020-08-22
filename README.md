@@ -9,7 +9,7 @@ The structure of the present repository follows best practices as long as the li
 This is the main dash application running on Flask. It also includes callbakcs for the dynamic features of the web application.
 
 ### 📃 settings.py
-settings of the app, useful to easily switch whether you are working locally or deploying in production. It also includes the code for the PostgreSQL engine, if preferred as alternative. Worth to be noted, the debug variable is important to be set to false once in production, due to security concerns.
+It includes settings to be changed depending on whether you are working locally or deploying in production, by simply changing the value of the variable *ENV*. The debug variable is particularly important to be set to *false* once in production, due to security concerns. Worth to be noted, this script also includes the code snippet for the PostgreSQL engine, if preferred as alternative. 
 
 ### 📁 data
 Generation of the variables needed in order to visualize different characteristics of the cusotmers in the application. Those could also be improved in terms of code efficiency by refactoring how variables are generated, through loops.
