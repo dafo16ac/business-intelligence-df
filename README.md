@@ -15,13 +15,13 @@ It includes settings to be changed depending on whether you are working locally 
 Minimum versions of the libraries used, necessary for deployment of the application.
 
 ### 📁 assets
-###### |__ 📃 favicon.ico
+###### 📃 favicon.ico
 Personal logo shown in the browser tab.
 
-###### |__ 📃 app_layout.css
+###### 📃 app_layout.css
 CSS style of the webapp.
 
-###### |__ 📃 graph_layouts.py
+###### 📃 graph_layouts.py
 Layout of the tables. Similar technique could be implemented for other charts, allowing further shrinkage of the code length. 
 
 ### 📁 data
@@ -33,3 +33,8 @@ Code efficiency could be improved by refactoring how variables are generated.
 The preceding clustering technique has been further explained in a separate notebook (TBD).
 
 For an overview of projects in my *Portfolio*, please follow this [link](https://github.com/dafo16ac/df_portfolio).
+
+The action of every agent <br />
+  into the world <br />
+starts <br />
+  from their physical selves. <br />
