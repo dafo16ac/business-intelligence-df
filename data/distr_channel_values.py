@@ -4,61 +4,61 @@ from settings import hotel_data, pd
 
 """ DISTRIBUTION CHANNEL VALUES  """
 # DISTRIBUTION CHANNEL
-TATO = hotel_data.loc[hotel_data['DistributionChannel'] == 'TA/TO']
-direct = hotel_data.loc[hotel_data['DistributionChannel'] == 'Direct']
-corporate = hotel_data.loc[hotel_data['DistributionChannel'] == 'Corporate']
-gds = hotel_data.loc[hotel_data['DistributionChannel'] == 'GDS']
+TATO = hotel_data.loc[hotel_data['Distribution Channel'] == 'TA/TO']
+direct = hotel_data.loc[hotel_data['Distribution Channel'] == 'Direct']
+corporate = hotel_data.loc[hotel_data['Distribution Channel'] == 'Corporate']
+gds = hotel_data.loc[hotel_data['Distribution Channel'] == 'GDS']
 
-tot_dchannel_perc = hotel_data['DistributionChannel'].count()
-TATO_perc = TATO['DistributionChannel'].count()
-direct_perc = direct['DistributionChannel'].count()
-corporate_perc = corporate['DistributionChannel'].count()
-gds_perc = gds['DistributionChannel'].count()
+tot_dchannel_perc = hotel_data['Distribution Channel'].count()
+TATO_perc = TATO['Distribution Channel'].count()
+direct_perc = direct['Distribution Channel'].count()
+corporate_perc = corporate['Distribution Channel'].count()
+gds_perc = gds['Distribution Channel'].count()
 
-TATO_mean = round(TATO['Upselling'].mean(), ndigits=1)
-direct_mean = round(direct['Upselling'].mean(), ndigits=1)
-corporate_mean = round(corporate['Upselling'].mean(), ndigits=1)
-gds_mean = round(gds['Upselling'].mean(), ndigits=1)
+TATO_mean = round(TATO['Additional Expenditures'].mean(), ndigits=1)
+direct_mean = round(direct['Additional Expenditures'].mean(), ndigits=1)
+corporate_mean = round(corporate['Additional Expenditures'].mean(), ndigits=1)
+gds_mean = round(gds['Additional Expenditures'].mean(), ndigits=1)
 
-TATORev_mean = round(TATO['Revenues by day'].mean(), ndigits=1)
-directRev_mean = round(direct['Revenues by day'].mean(), ndigits=1)
-corporateRev_mean = round(corporate['Revenues by day'].mean(), ndigits=1)
-gdsRev_mean = round(gds['Revenues by day'].mean(), ndigits=1)
+TATORev_mean = round(TATO['ADR'].mean(), ndigits=1)
+directRev_mean = round(direct['ADR'].mean(), ndigits=1)
+corporateRev_mean = round(corporate['ADR'].mean(), ndigits=1)
+gdsRev_mean = round(gds['ADR'].mean(), ndigits=1)
 
-TATO_rating = round(TATO['Rating'].mean(), ndigits=1)
-direct_rating = round(direct['Rating'].mean(), ndigits=1)
-corporate_rating = round(corporate['Rating'].mean(), ndigits=1)
-gds_rating = round(gds['Rating'].mean(), ndigits=1)
+TATO_rating = round(TATO['Customer Satisfaction Rating'].mean(), ndigits=1)
+direct_rating = round(direct['Customer Satisfaction Rating'].mean(), ndigits=1)
+corporate_rating = round(corporate['Customer Satisfaction Rating'].mean(), ndigits=1)
+gds_rating = round(gds['Customer Satisfaction Rating'].mean(), ndigits=1)
 
 TATO_nights = round(TATO['Nights'].mean(), ndigits=1)
 direct_nights = round(direct['Nights'].mean(), ndigits=1)
 corporate_nights = round(corporate['Nights'].mean(), ndigits=1)
 gds_nights = round(gds['Nights'].mean(), ndigits=1)
 
-TATO_wd = round(TATO['StaysInWeekNights'].mean(), ndigits=1)
-direct_wd = round(direct['StaysInWeekNights'].mean(), ndigits=1)
-corporate_wd = round(corporate['StaysInWeekNights'].mean(), ndigits=1)
-gds_wd = round(gds['StaysInWeekNights'].mean(), ndigits=1)
+TATO_wd = round(TATO['Week Nights'].mean(), ndigits=1)
+direct_wd = round(direct['Week Nights'].mean(), ndigits=1)
+corporate_wd = round(corporate['Week Nights'].mean(), ndigits=1)
+gds_wd = round(gds['Week Nights'].mean(), ndigits=1)
 
-TATO_we = round(TATO['StaysInWeekendNights'].mean(), ndigits=1)
-direct_we = round(direct['StaysInWeekendNights'].mean(), ndigits=1)
-corporate_we = round(corporate['StaysInWeekendNights'].mean(), ndigits=1)
-gds_we = round(gds['StaysInWeekendNights'].mean(), ndigits=1)
+TATO_we = round(TATO['Weekend Nights'].mean(), ndigits=1)
+direct_we = round(direct['Weekend Nights'].mean(), ndigits=1)
+corporate_we = round(corporate['Weekend Nights'].mean(), ndigits=1)
+gds_we = round(gds['Weekend Nights'].mean(), ndigits=1)
 
-TATO_nation_rev = TATO.groupby('Country')['Revenues by day'].mean().sort_values(ascending=False).index[0]
-direct_nation_rev = direct.groupby('Country')['Revenues by day'].mean().sort_values(ascending=False).index[0]
-corporate_nation_rev = corporate.groupby('Country')['Revenues by day'].mean().sort_values(ascending=False).index[0]
-gds_nation_rev = gds.groupby('Country')['Revenues by day'].mean().sort_values(ascending=False).index[0]
+TATO_nation_rev = TATO.groupby('Country')['ADR'].mean().sort_values(ascending=False).index[0]
+direct_nation_rev = direct.groupby('Country')['ADR'].mean().sort_values(ascending=False).index[0]
+corporate_nation_rev = corporate.groupby('Country')['ADR'].mean().sort_values(ascending=False).index[0]
+gds_nation_rev = gds.groupby('Country')['ADR'].mean().sort_values(ascending=False).index[0]
 
-TATO_nation_rating = TATO.groupby('Country')['Rating'].mean().sort_values(ascending=False).index[0]
-direct_nation_rating = direct.groupby('Country')['Rating'].mean().sort_values(ascending=False).index[0]
-corporate_nation_rating = corporate.groupby('Country')['Rating'].mean().sort_values(ascending=False).index[0]
-gds_nation_rating = gds.groupby('Country')['Rating'].mean().sort_values(ascending=False).index[0]
+TATO_nation_rating = TATO.groupby('Country')['Customer Satisfaction Rating'].mean().sort_values(ascending=False).index[0]
+direct_nation_rating = direct.groupby('Country')['Customer Satisfaction Rating'].mean().sort_values(ascending=False).index[0]
+corporate_nation_rating = corporate.groupby('Country')['Customer Satisfaction Rating'].mean().sort_values(ascending=False).index[0]
+gds_nation_rating = gds.groupby('Country')['Customer Satisfaction Rating'].mean().sort_values(ascending=False).index[0]
 
-TATO_nation_upselling = TATO.groupby('Country')['Upselling'].mean().sort_values(ascending=False).index[0]
-direct_nation_upselling = direct.groupby('Country')['Upselling'].mean().sort_values(ascending=False).index[0]
-corporate_nation_upselling = corporate.groupby('Country')['Upselling'].mean().sort_values(ascending=False).index[0]
-gds_nation_upselling = gds.groupby('Country')['Upselling'].mean().sort_values(ascending=False).index[0]
+TATO_nation_upselling = TATO.groupby('Country')['Additional Expenditures'].mean().sort_values(ascending=False).index[0]
+direct_nation_upselling = direct.groupby('Country')['Additional Expenditures'].mean().sort_values(ascending=False).index[0]
+corporate_nation_upselling = corporate.groupby('Country')['Additional Expenditures'].mean().sort_values(ascending=False).index[0]
+gds_nation_upselling = gds.groupby('Country')['Additional Expenditures'].mean().sort_values(ascending=False).index[0]
 
 columns_dc = ['TA/TO', 'Direct', 'Corporate', 'GDS']
 index_dc = ['Upselling mean', 'Revenues mean', 'Rating mean', 'Length staying mean (days)', ' - N° Weekdays',
@@ -103,7 +103,7 @@ table_dc_title = go.Table(
     domain=dict(x=[0, .28],
                 y=[0.8, 0.99]),
     header=dict(height=45,
-                values=['Segments by Distribution Channel'],
+                values=['Sub-Segments by Distribution Channel'],
                 line=dict(color='white'),
                 align=['center'],
                 font=dict(color=['black'] * 5, size=16),
@@ -187,20 +187,20 @@ data_donuts_dc4 = {
 }
 
 # Type of upselling
-values_upselling_TATO = hotel_data[['Bar', 'Restaurant', 'Other', 'Breakfast', 'Revenues by day']].loc[
-    hotel_data['DistributionChannel'] == 'TA/TO'].sum().copy()
+values_upselling_TATO = hotel_data[['Bar', 'Restaurant', 'Other', 'Breakfast', 'ADR']].loc[
+    hotel_data['Distribution Channel'] == 'TA/TO'].sum().copy()
 values_upselling_TATO = values_upselling_TATO.tolist()
 
-values_upselling_direct = hotel_data[['Bar', 'Restaurant', 'Other', 'Breakfast', 'Revenues by day']].loc[
-    hotel_data['DistributionChannel'] == 'Direct'].sum().copy()
+values_upselling_direct = hotel_data[['Bar', 'Restaurant', 'Other', 'Breakfast', 'ADR']].loc[
+    hotel_data['Distribution Channel'] == 'Direct'].sum().copy()
 values_upselling_direct = values_upselling_direct.tolist()
 
-values_upselling_corporate = hotel_data[['Bar', 'Restaurant', 'Other', 'Breakfast', 'Revenues by day']].loc[
-    hotel_data['DistributionChannel'] == 'Corporate'].sum().copy()
+values_upselling_corporate = hotel_data[['Bar', 'Restaurant', 'Other', 'Breakfast', 'ADR']].loc[
+    hotel_data['Distribution Channel'] == 'Corporate'].sum().copy()
 values_upselling_corporate = values_upselling_corporate.tolist()
 
-values_upselling_gds = hotel_data[['Bar', 'Restaurant', 'Other', 'Breakfast', 'Revenues by day']].loc[
-    hotel_data['DistributionChannel'] == 'GDS'].sum().copy()
+values_upselling_gds = hotel_data[['Bar', 'Restaurant', 'Other', 'Breakfast', 'ADR']].loc[
+    hotel_data['Distribution Channel'] == 'GDS'].sum().copy()
 values_upselling_gds = values_upselling_gds.tolist()
 
 values_upselling_dc = [values_upselling_TATO, values_upselling_direct, values_upselling_corporate, values_upselling_gds]
@@ -299,7 +299,7 @@ ups_corporate = [ups_corporate_restaurant_rev_mean, ups_corporate_bar_rev_mean, 
                  ups_corporate_other_rev_mean]
 ups_gds = [ups_gds_restaurant_rev_mean, ups_gds_bar_rev_mean, ups_gds_breakfast_rev_mean, ups_gds_other_rev_mean]
 
-ups_tot = hotel_data['Upselling'].sum()
+ups_tot = hotel_data['Additional Expenditures'].sum()
 
 ups_TATO_restaurant_sum = TATO['Restaurant'].sum()
 ups_direct_restaurant_sum = direct['Restaurant'].sum()

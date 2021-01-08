@@ -12,7 +12,7 @@ class RightTable(Table):
             domain=dict(x=[0.65, 1],
                         y=[0.35, 0.80]),
             header=dict(height=20,
-                        values=[[''], ['<b>Daily mean Expenditure</b>'], ['<b>% over all Clusters<b>']],
+                        values=[['<b>Additional Expenditure</b>'], ['<b>Daily mean</b>'], ['<b>% over all Clusters<b>']],
                         line=dict(color='rgb(50, 50, 50)'),
                         align=['left'],
                         font=dict(color=['white'] * 5, size=8),

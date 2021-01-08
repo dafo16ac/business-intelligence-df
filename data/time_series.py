@@ -2,18 +2,18 @@ import plotly.graph_objs as go
 from settings import hotel_data
 
 """ TIME SERIES DATA """
-TimeSeriesDate = hotel_data.groupby(['TimeArrival']).mean().copy()
+TimeSeriesDate = hotel_data.groupby(['Arrival Date']).mean().copy()
 
 revenues_scatter = go.Scatter(x=TimeSeriesDate.index,
-                              y=TimeSeriesDate['TOT_ADR'].rolling(window=3).mean(),
-                              name='Tot Revenues per day',
+                              y=TimeSeriesDate['ADR Adjusted'].rolling(window=3).mean(),
+                              name='ADR Adjusted',
                               line=dict(
                                   color=('#dc3d4f'),
                                   width=1.5, ))
 
 rating_scatter = go.Scatter(x=TimeSeriesDate.index,
-                            y=TimeSeriesDate['Rating'].rolling(window=3).mean(),
-                            name='Rating',
+                            y=TimeSeriesDate['Customer Satisfaction Rating'].rolling(window=3).mean(),
+                            name='Customer Satisfaction Rating',
                             yaxis='y2',
                             line=dict(
                                 color=('#3DDCCA'),
@@ -46,10 +46,10 @@ layout_scatter_slider = dict(
         type='date'
     ),
     yaxis=dict(
-        title='Tot Rev per day (MA 3d)'
+        title='ADR Adjusted (MA 3d)'
     ),
     yaxis2=dict(
-        title='Rating (MA 3d)',
+        title='Customer Satisfaction Rating (MA 3d)',
         overlaying='y',
         side='right'
     ),

@@ -4,64 +4,64 @@ from settings import hotel_data, pd
 from data.age_values import ups_tot, index_age
 
 """ CUSTOMER TYPE VALUES  """
-transient = hotel_data.loc[hotel_data['CustomerType'] == 'Transient']
-transient_party = hotel_data.loc[hotel_data['CustomerType'] == 'Transient-Party']
-contract = hotel_data.loc[hotel_data['CustomerType'] == 'Contract']
-group = hotel_data.loc[hotel_data['CustomerType'] == 'Group']
+transient = hotel_data.loc[hotel_data['Customer Type'] == 'Transient']
+transient_party = hotel_data.loc[hotel_data['Customer Type'] == 'Transient-Party']
+contract = hotel_data.loc[hotel_data['Customer Type'] == 'Contract']
+group = hotel_data.loc[hotel_data['Customer Type'] == 'Group']
 
-tot_customertype_perc = hotel_data['CustomerType'].count()
-transient_perc = transient['CustomerType'].count()
-transient_party_perc = transient_party['CustomerType'].count()
-contract_perc = contract['CustomerType'].count()
-group_perc = group['CustomerType'].count()
+tot_customertype_perc = hotel_data['Customer Type'].count()
+transient_perc = transient['Customer Type'].count()
+transient_party_perc = transient_party['Customer Type'].count()
+contract_perc = contract['Customer Type'].count()
+group_perc = group['Customer Type'].count()
 
-transient_mean = round(transient['Upselling'].mean(), ndigits=1)
-transient_party_mean = round(transient_party['Upselling'].mean(), ndigits=1)
-contract_mean = round(contract['Upselling'].mean(), ndigits=1)
-group_mean = round(group['Upselling'].mean(), ndigits=1)
+transient_mean = round(transient['Additional Expenditures'].mean(), ndigits=1)
+transient_party_mean = round(transient_party['Additional Expenditures'].mean(), ndigits=1)
+contract_mean = round(contract['Additional Expenditures'].mean(), ndigits=1)
+group_mean = round(group['Additional Expenditures'].mean(), ndigits=1)
 
-transientRev_mean = round(transient['Revenues by day'].mean(), ndigits=1)
-transient_partyRev_mean = round(transient_party['Revenues by day'].mean(), ndigits=1)
-contractRev_mean = round(contract['Revenues by day'].mean(), ndigits=1)
-groupRev_mean = round(group['Revenues by day'].mean(), ndigits=1)
+transientRev_mean = round(transient['ADR'].mean(), ndigits=1)
+transient_partyRev_mean = round(transient_party['ADR'].mean(), ndigits=1)
+contractRev_mean = round(contract['ADR'].mean(), ndigits=1)
+groupRev_mean = round(group['ADR'].mean(), ndigits=1)
 
-transient_rating = round(transient['Rating'].mean(), ndigits=1)
-transient_party_rating = round(transient_party['Rating'].mean(), ndigits=1)
-contract_rating = round(contract['Rating'].mean(), ndigits=1)
-group_rating = round(group['Rating'].mean(), ndigits=1)
+transient_rating = round(transient['Customer Satisfaction Rating'].mean(), ndigits=1)
+transient_party_rating = round(transient_party['Customer Satisfaction Rating'].mean(), ndigits=1)
+contract_rating = round(contract['Customer Satisfaction Rating'].mean(), ndigits=1)
+group_rating = round(group['Customer Satisfaction Rating'].mean(), ndigits=1)
 
 transient_nights = round(transient['Nights'].mean(), ndigits=1)
 transient_party_nights = round(transient_party['Nights'].mean(), ndigits=1)
 contract_nights = round(contract['Nights'].mean(), ndigits=1)
 group_nights = round(group['Nights'].mean(), ndigits=1)
 
-transient_wd = round(transient['StaysInWeekNights'].mean(), ndigits=1)
-transient_party_wd = round(transient_party['StaysInWeekNights'].mean(), ndigits=1)
-contract_wd = round(contract['StaysInWeekNights'].mean(), ndigits=1)
-group_wd = round(group['StaysInWeekNights'].mean(), ndigits=1)
+transient_wd = round(transient['Week Nights'].mean(), ndigits=1)
+transient_party_wd = round(transient_party['Week Nights'].mean(), ndigits=1)
+contract_wd = round(contract['Week Nights'].mean(), ndigits=1)
+group_wd = round(group['Week Nights'].mean(), ndigits=1)
 
-transient_we = round(transient['StaysInWeekendNights'].mean(), ndigits=1)
-transient_party_we = round(transient_party['StaysInWeekendNights'].mean(), ndigits=1)
-contract_we = round(contract['StaysInWeekendNights'].mean(), ndigits=1)
-group_we = round(group['StaysInWeekendNights'].mean(), ndigits=1)
+transient_we = round(transient['Weekend Nights'].mean(), ndigits=1)
+transient_party_we = round(transient_party['Weekend Nights'].mean(), ndigits=1)
+contract_we = round(contract['Weekend Nights'].mean(), ndigits=1)
+group_we = round(group['Weekend Nights'].mean(), ndigits=1)
 
-transient_nation_rev = transient.groupby('Country')['Revenues by day'].mean().sort_values(ascending=False).index[0]
+transient_nation_rev = transient.groupby('Country')['ADR'].mean().sort_values(ascending=False).index[0]
 transient_party_nation_rev = \
-    transient_party.groupby('Country')['Revenues by day'].mean().sort_values(ascending=False).index[0]
-contract_nation_rev = contract.groupby('Country')['Revenues by day'].mean().sort_values(ascending=False).index[0]
-group_nation_rev = group.groupby('Country')['Revenues by day'].mean().sort_values(ascending=False).index[0]
+    transient_party.groupby('Country')['ADR'].mean().sort_values(ascending=False).index[0]
+contract_nation_rev = contract.groupby('Country')['ADR'].mean().sort_values(ascending=False).index[0]
+group_nation_rev = group.groupby('Country')['ADR'].mean().sort_values(ascending=False).index[0]
 
-transient_nation_rating = transient.groupby('Country')['Rating'].mean().sort_values(ascending=False).index[0]
-transient_party_nation_rating = transient_party.groupby('Country')['Rating'].mean().sort_values(ascending=False).index[
+transient_nation_rating = transient.groupby('Country')['Customer Satisfaction Rating'].mean().sort_values(ascending=False).index[0]
+transient_party_nation_rating = transient_party.groupby('Country')['Customer Satisfaction Rating'].mean().sort_values(ascending=False).index[
     0]
-contract_nation_rating = contract.groupby('Country')['Rating'].mean().sort_values(ascending=False).index[0]
-group_nation_rating = group.groupby('Country')['Rating'].mean().sort_values(ascending=False).index[0]
+contract_nation_rating = contract.groupby('Country')['Customer Satisfaction Rating'].mean().sort_values(ascending=False).index[0]
+group_nation_rating = group.groupby('Country')['Customer Satisfaction Rating'].mean().sort_values(ascending=False).index[0]
 
-transient_nation_upselling = transient.groupby('Country')['Upselling'].mean().sort_values(ascending=False).index[0]
+transient_nation_upselling = transient.groupby('Country')['Additional Expenditures'].mean().sort_values(ascending=False).index[0]
 transient_party_nation_upselling = \
-    transient_party.groupby('Country')['Upselling'].mean().sort_values(ascending=False).index[0]
-contract_nation_upselling = contract.groupby('Country')['Upselling'].mean().sort_values(ascending=False).index[0]
-group_nation_upselling = group.groupby('Country')['Upselling'].mean().sort_values(ascending=False).index[0]
+    transient_party.groupby('Country')['Additional Expenditures'].mean().sort_values(ascending=False).index[0]
+contract_nation_upselling = contract.groupby('Country')['Additional Expenditures'].mean().sort_values(ascending=False).index[0]
+group_nation_upselling = group.groupby('Country')['Additional Expenditures'].mean().sort_values(ascending=False).index[0]
 
 columns_ct = ['Transient', 'Transient-Party', 'Contract', 'Group']
 index_ct = index_age
@@ -105,7 +105,7 @@ table_ct_title = go.Table(
     domain=dict(x=[0, .28],
                 y=[0.24, 0.295]),
     header=dict(height=45,
-                values=['Segments by Customer Type'],
+                values=['Sub-Segments by Customer Type'],
                 line=dict(color='#fafafa'),
                 align=['center'],
                 font=dict(color=['black'] * 5, size=16),
@@ -189,20 +189,20 @@ data_donuts_cs4 = {
 }
 
 # Type of upselling
-values_upselling_transient = hotel_data[['Bar', 'Restaurant', 'Other', 'Breakfast', 'Revenues by day']].loc[
-    hotel_data['CustomerType'] == 'Transient'].sum().copy()
+values_upselling_transient = hotel_data[['Bar', 'Restaurant', 'Other', 'Breakfast', 'ADR']].loc[
+    hotel_data['Customer Type'] == 'Transient'].sum().copy()
 values_upselling_transient = values_upselling_transient.tolist()
 
-values_upselling_transientP = hotel_data[['Bar', 'Restaurant', 'Other', 'Breakfast', 'Revenues by day']].loc[
-    hotel_data['CustomerType'] == 'Transient-Party'].sum().copy()
+values_upselling_transientP = hotel_data[['Bar', 'Restaurant', 'Other', 'Breakfast', 'ADR']].loc[
+    hotel_data['Customer Type'] == 'Transient-Party'].sum().copy()
 values_upselling_transientP = values_upselling_transientP.tolist()
 
-values_upselling_contract = hotel_data[['Bar', 'Restaurant', 'Other', 'Breakfast', 'Revenues by day']].loc[
-    hotel_data['CustomerType'] == 'Contract'].sum().copy()
+values_upselling_contract = hotel_data[['Bar', 'Restaurant', 'Other', 'Breakfast', 'ADR']].loc[
+    hotel_data['Customer Type'] == 'Contract'].sum().copy()
 values_upselling_contract = values_upselling_contract.tolist()
 
-values_upselling_group = hotel_data[['Bar', 'Restaurant', 'Other', 'Breakfast', 'Revenues by day']].loc[
-    hotel_data['CustomerType'] == 'Group'].sum().copy()
+values_upselling_group = hotel_data[['Bar', 'Restaurant', 'Other', 'Breakfast', 'ADR']].loc[
+    hotel_data['Customer Type'] == 'Group'].sum().copy()
 values_upselling_group = values_upselling_group.tolist()
 
 values_upselling_ct = [values_upselling_transient, values_upselling_transientP, values_upselling_contract,

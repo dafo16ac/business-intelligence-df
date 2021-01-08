@@ -1,23 +1,52 @@
 import plotly.graph_objs as go
-
+import plotly.express as px
 from settings import hotel_data
 
 
 """ 3D PLOT CLUSTER """
-cl0 = hotel_data.loc[hotel_data['IDlabelsClusters'] == 3].copy()  ### nverted number so clusters in descending order
-cl1 = hotel_data.loc[hotel_data['IDlabelsClusters'] == 1].copy()
-cl2 = hotel_data.loc[hotel_data['IDlabelsClusters'] == 2].copy()
-cl3 = hotel_data.loc[hotel_data['IDlabelsClusters'] == 0].copy()
-cl4 = hotel_data.loc[hotel_data['IDlabelsClusters'] == 4].copy()
-cl5 = hotel_data.loc[hotel_data['IDlabelsClusters'] == 5].copy()
+cl0 = hotel_data.loc[hotel_data['Cluster'] == 0].copy()
+cl1 = hotel_data.loc[hotel_data['Cluster'] == 1].copy()
+cl2 = hotel_data.loc[hotel_data['Cluster'] == 2].copy()
+cl3 = hotel_data.loc[hotel_data['Cluster'] == 3].copy()
+cl4 = hotel_data.loc[hotel_data['Cluster'] == 4].copy()
+cl5 = hotel_data.loc[hotel_data['Cluster'] == 5].copy()
+cl6 = hotel_data.loc[hotel_data['Cluster'] == 6].copy()
 
-cluster1 = go.Scatter3d(
-    x=cl0['Rating'],
-    y=cl0['Revenues by day'],
-    z=cl0['Upselling'],
+cl_label_0 = '0. ' + cl0['Cluster Profile'].unique()[0]
+cl_label_1 = '1. ' + cl1['Cluster Profile'].unique()[0]
+cl_label_2 = '2. ' + cl2['Cluster Profile'].unique()[0]
+cl_label_3 = '3. ' + cl3['Cluster Profile'].unique()[0]
+cl_label_4 = '4. ' + cl4['Cluster Profile'].unique()[0]
+cl_label_5 = '5. ' + cl5['Cluster Profile'].unique()[0]
+cl_label_6 = '6. ' + cl6['Cluster Profile'].unique()[0]
+
+
+cluster0 = go.Scatter3d(
+    x=cl6['Customer Satisfaction Rating'],
+    y=cl6['ADR'],
+    z=cl6['Additional Expenditures'],
     mode='markers',
     showlegend=True,
-    name='High TotRev & Rating',  ###
+    name=cl_label_0,
+    marker=dict(
+        size=3.5,
+        color='#1f78b4',
+        # colorscale='YlGnBu',
+        line=dict(
+            color='black',
+            width=0.08
+        ),
+        # opacity=0.96
+    )
+)
+
+cluster1 = go.Scatter3d(
+    x=cl0['Customer Satisfaction Rating'],
+    y=cl0['ADR'],
+    z=cl0['Additional Expenditures'],
+    mode='markers',
+    showlegend=True,
+    name=cl_label_1,
     marker=dict(
         size=3.5,
         color='#a6cee3',
@@ -31,15 +60,15 @@ cluster1 = go.Scatter3d(
 )
 
 cluster2 = go.Scatter3d(
-    x=cl1['Rating'],
-    y=cl1['Revenues by day'],
-    z=cl1['Upselling'],
+    x=cl1['Customer Satisfaction Rating'],
+    y=cl1['ADR'],
+    z=cl1['Additional Expenditures'],
     mode='markers',
     showlegend=True,
-    name='High Rating',
+    name=cl_label_2,
     marker=dict(
         size=3.5,
-        color='#1f78b4',
+        color='#f7ef99',
         # colorscale='YlGnBu',
         line=dict(
             color='black',
@@ -50,12 +79,12 @@ cluster2 = go.Scatter3d(
 )
 
 cluster3 = go.Scatter3d(
-    x=cl2['Rating'],
-    y=cl2['Revenues by day'],
-    z=cl2['Upselling'],
+    x=cl2['Customer Satisfaction Rating'],
+    y=cl2['ADR'],
+    z=cl2['Additional Expenditures'],
     mode='markers',
     showlegend=True,
-    name='High TotRev',
+    name=cl_label_3,
     marker=dict(
         size=3.5,
         color='#b2df8a',
@@ -69,12 +98,12 @@ cluster3 = go.Scatter3d(
 )
 
 cluster4 = go.Scatter3d(
-    x=cl3['Rating'],
-    y=cl3['Revenues by day'],
-    z=cl3['Upselling'],
+    x=cl3['Customer Satisfaction Rating'],
+    y=cl3['ADR'],
+    z=cl3['Additional Expenditures'],
     mode='markers',
     showlegend=True,
-    name='Medium TotRev & Rating',  ###
+    name=cl_label_4,
     marker=dict(
         size=3.5,
         color='#fb9a99',
@@ -88,12 +117,12 @@ cluster4 = go.Scatter3d(
 )
 
 cluster5 = go.Scatter3d(
-    x=cl4['Rating'],
-    y=cl4['Revenues by day'],
-    z=cl4['Upselling'],
+    x=cl4['Customer Satisfaction Rating'],
+    y=cl4['ADR'],
+    z=cl4['Additional Expenditures'],
     mode='markers',
     showlegend=True,
-    name='Medium-low TotRev & Rating',
+    name=cl_label_5,
     marker=dict(
         size=3.5,
         color='#e31a1c',
@@ -107,12 +136,12 @@ cluster5 = go.Scatter3d(
 )
 
 cluster6 = go.Scatter3d(
-    x=cl5['Rating'],
-    y=cl5['Revenues by day'],
-    z=cl5['Upselling'],
+    x=cl5['Customer Satisfaction Rating'],
+    y=cl5['ADR'],
+    z=cl5['Additional Expenditures'],
     mode='markers',
     showlegend=True,
-    name='Low TotRev',
+    name=cl_label_6,
     # hoverinfo='x + y + text',
     marker=dict(
         size=3.5,
@@ -126,4 +155,4 @@ cluster6 = go.Scatter3d(
     )
 )
 
-traces_3d = [cluster1, cluster2, cluster3, cluster4, cluster5, cluster6]
+traces_3d = [cluster0, cluster1, cluster2, cluster3, cluster4, cluster5, cluster6]

@@ -18,23 +18,23 @@ adults_48_perc = adults_48['Age'].count()
 adults_66_perc = adults_66['Age'].count()
 adults_plus_perc = adults_plus['Age'].count()
 
-children_mean = round(children['Upselling'].mean(), ndigits=1)
-adults_32_mean = round(adults_32['Upselling'].mean(), ndigits=1)
-adults_48_mean = round(adults_48['Upselling'].mean(), ndigits=1)
-adults_66_mean = round(adults_66['Upselling'].mean(), ndigits=1)
-adults_plus_mean = round(adults_plus['Upselling'].mean(), ndigits=1)
+children_mean = round(children['Additional Expenditures'].mean(), ndigits=1)
+adults_32_mean = round(adults_32['Additional Expenditures'].mean(), ndigits=1)
+adults_48_mean = round(adults_48['Additional Expenditures'].mean(), ndigits=1)
+adults_66_mean = round(adults_66['Additional Expenditures'].mean(), ndigits=1)
+adults_plus_mean = round(adults_plus['Additional Expenditures'].mean(), ndigits=1)
 
-childrenRev_mean = round(children['Revenues by day'].mean(), ndigits=1)
-youngRev_32_mean = round(adults_32['Revenues by day'].mean(), ndigits=1)
-adultsRev_48_mean = round(adults_48['Revenues by day'].mean(), ndigits=1)
-adultsRev_66_mean = round(adults_66['Revenues by day'].mean(), ndigits=1)
-adultsRev_plus_mean = round(adults_plus['Revenues by day'].mean(), ndigits=1)
+childrenRev_mean = round(children['ADR'].mean(), ndigits=1)
+youngRev_32_mean = round(adults_32['ADR'].mean(), ndigits=1)
+adultsRev_48_mean = round(adults_48['ADR'].mean(), ndigits=1)
+adultsRev_66_mean = round(adults_66['ADR'].mean(), ndigits=1)
+adultsRev_plus_mean = round(adults_plus['ADR'].mean(), ndigits=1)
 
-children_rating = round(children['Rating'].mean(), ndigits=1)
-adults_32_rating = round(adults_32['Rating'].mean(), ndigits=1)
-adults_48_rating = round(adults_48['Rating'].mean(), ndigits=1)
-adults_66_rating = round(adults_66['Rating'].mean(), ndigits=1)
-adults_plus_rating = round(adults_plus['Rating'].mean(), ndigits=1)
+children_rating = round(children['Customer Satisfaction Rating'].mean(), ndigits=1)
+adults_32_rating = round(adults_32['Customer Satisfaction Rating'].mean(), ndigits=1)
+adults_48_rating = round(adults_48['Customer Satisfaction Rating'].mean(), ndigits=1)
+adults_66_rating = round(adults_66['Customer Satisfaction Rating'].mean(), ndigits=1)
+adults_plus_rating = round(adults_plus['Customer Satisfaction Rating'].mean(), ndigits=1)
 
 children_nights = round(children['Nights'].mean(), ndigits=1)
 adults_32_nights = round(adults_32['Nights'].mean(), ndigits=1)
@@ -42,35 +42,35 @@ adults_48_nights = round(adults_48['Nights'].mean(), ndigits=1)
 adults_66_nights = round(adults_66['Nights'].mean(), ndigits=1)
 adults_plus_nights = round(adults_plus['Nights'].mean(), ndigits=1)
 
-children_wd = round(children['StaysInWeekNights'].mean(), ndigits=1)
-adults_32_wd = round(adults_32['StaysInWeekNights'].mean(), ndigits=1)
-adults_48_wd = round(adults_48['StaysInWeekNights'].mean(), ndigits=1)
-adults_66_wd = round(adults_66['StaysInWeekNights'].mean(), ndigits=1)
-adults_plus_wd = round(adults_plus['StaysInWeekNights'].mean(), ndigits=1)
+children_wd = round(children['Week Nights'].mean(), ndigits=1)
+adults_32_wd = round(adults_32['Week Nights'].mean(), ndigits=1)
+adults_48_wd = round(adults_48['Week Nights'].mean(), ndigits=1)
+adults_66_wd = round(adults_66['Week Nights'].mean(), ndigits=1)
+adults_plus_wd = round(adults_plus['Week Nights'].mean(), ndigits=1)
 
-children_we = round(children['StaysInWeekendNights'].mean(), ndigits=1)
-adults_32_we = round(adults_32['StaysInWeekendNights'].mean(), ndigits=1)
-adults_48_we = round(adults_48['StaysInWeekendNights'].mean(), ndigits=1)
-adults_66_we = round(adults_66['StaysInWeekendNights'].mean(), ndigits=1)
-adults_plus_we = round(adults_plus['StaysInWeekendNights'].mean(), ndigits=1)
+children_we = round(children['Weekend Nights'].mean(), ndigits=1)
+adults_32_we = round(adults_32['Weekend Nights'].mean(), ndigits=1)
+adults_48_we = round(adults_48['Weekend Nights'].mean(), ndigits=1)
+adults_66_we = round(adults_66['Weekend Nights'].mean(), ndigits=1)
+adults_plus_we = round(adults_plus['Weekend Nights'].mean(), ndigits=1)
 
-children_nation_rev = children.groupby('Country')['Revenues by day'].mean().sort_values(ascending=False).index[0]
-adults_32_nation_rev = adults_32.groupby('Country')['Revenues by day'].mean().sort_values(ascending=False).index[0]
-adults_48_nation_rev = adults_48.groupby('Country')['Revenues by day'].mean().sort_values(ascending=False).index[0]
-adults_66_nation_rev = adults_66.groupby('Country')['Revenues by day'].mean().sort_values(ascending=False).index[0]
-adults_plus_nation_rev = adults_plus.groupby('Country')['Revenues by day'].mean().sort_values(ascending=False).index[0]
+children_nation_rev = children.groupby('Country')['ADR'].mean().sort_values(ascending=False).index[0]
+adults_32_nation_rev = adults_32.groupby('Country')['ADR'].mean().sort_values(ascending=False).index[0]
+adults_48_nation_rev = adults_48.groupby('Country')['ADR'].mean().sort_values(ascending=False).index[0]
+adults_66_nation_rev = adults_66.groupby('Country')['ADR'].mean().sort_values(ascending=False).index[0]
+adults_plus_nation_rev = adults_plus.groupby('Country')['ADR'].mean().sort_values(ascending=False).index[0]
 
-children_nation_rating = children.groupby('Country')['Rating'].mean().sort_values(ascending=False).index[0]
-adults_32_nation_rating = adults_32.groupby('Country')['Rating'].mean().sort_values(ascending=False).index[0]
-adults_48_nation_rating = adults_48.groupby('Country')['Rating'].mean().sort_values(ascending=False).index[0]
-adults_66_nation_rating = adults_66.groupby('Country')['Rating'].mean().sort_values(ascending=False).index[0]
-adults_plus_nation_rating = adults_plus.groupby('Country')['Rating'].mean().sort_values(ascending=False).index[0]
+children_nation_rating = children.groupby('Country')['Customer Satisfaction Rating'].mean().sort_values(ascending=False).index[0]
+adults_32_nation_rating = adults_32.groupby('Country')['Customer Satisfaction Rating'].mean().sort_values(ascending=False).index[0]
+adults_48_nation_rating = adults_48.groupby('Country')['Customer Satisfaction Rating'].mean().sort_values(ascending=False).index[0]
+adults_66_nation_rating = adults_66.groupby('Country')['Customer Satisfaction Rating'].mean().sort_values(ascending=False).index[0]
+adults_plus_nation_rating = adults_plus.groupby('Country')['Customer Satisfaction Rating'].mean().sort_values(ascending=False).index[0]
 
-children_nation_upselling = children.groupby('Country')['Upselling'].mean().sort_values(ascending=False).index[0]
-adults_32_nation_upselling = adults_32.groupby('Country')['Upselling'].mean().sort_values(ascending=False).index[0]
-adults_48_nation_upselling = adults_48.groupby('Country')['Upselling'].mean().sort_values(ascending=False).index[0]
-adults_66_nation_upselling = adults_66.groupby('Country')['Upselling'].mean().sort_values(ascending=False).index[0]
-adults_plus_nation_upselling = adults_plus.groupby('Country')['Upselling'].mean().sort_values(ascending=False).index[0]
+children_nation_upselling = children.groupby('Country')['Additional Expenditures'].mean().sort_values(ascending=False).index[0]
+adults_32_nation_upselling = adults_32.groupby('Country')['Additional Expenditures'].mean().sort_values(ascending=False).index[0]
+adults_48_nation_upselling = adults_48.groupby('Country')['Additional Expenditures'].mean().sort_values(ascending=False).index[0]
+adults_66_nation_upselling = adults_66.groupby('Country')['Additional Expenditures'].mean().sort_values(ascending=False).index[0]
+adults_plus_nation_upselling = adults_plus.groupby('Country')['Additional Expenditures'].mean().sort_values(ascending=False).index[0]
 
 columns_age = ['children', 'adults_32', 'adults_48', 'adults_66', 'adults_plus']
 index_age = ['Cross-selling mean', 'Revenues mean', 'Rating mean', 'Length staying mean (days)', ' - N° Weekdays',
@@ -123,7 +123,7 @@ table_age_title = go.Table(
     domain=dict(x=[0, .28],
                 y=[0.94, 0.995]),
     header=dict(height=35,
-                values=['Segments by Age'],
+                values=['Sub-Segments by Age'],
                 line=dict(color='#fafafa'),
                 align=['center'],
                 font=dict(color=['black'] * 5, size=16),
@@ -222,23 +222,23 @@ data_donuts_age5 = {
     'marker': {'colors': ['#dc3d4f', '#a9efe8']}
 }
 
-values_upselling_children = hotel_data[['Bar', 'Restaurant', 'Other', 'Breakfast', 'Revenues by day']].loc[
+values_upselling_children = hotel_data[['Bar', 'Restaurant', 'Other', 'Breakfast', 'ADR']].loc[
     hotel_data['Age'] < 18].sum()
 values_upselling_children = values_upselling_children.tolist()
 
-values_upselling_adults32 = hotel_data[['Bar', 'Restaurant', 'Other', 'Breakfast', 'Revenues by day']].loc[
+values_upselling_adults32 = hotel_data[['Bar', 'Restaurant', 'Other', 'Breakfast', 'ADR']].loc[
     (18 <= hotel_data['Age']) & (hotel_data['Age'] <= 32)].sum()
 values_upselling_adults32 = values_upselling_adults32.tolist()
 
-values_upselling_adults48 = hotel_data[['Bar', 'Restaurant', 'Other', 'Breakfast', 'Revenues by day']].loc[
+values_upselling_adults48 = hotel_data[['Bar', 'Restaurant', 'Other', 'Breakfast', 'ADR']].loc[
     (33 <= hotel_data['Age']) & (hotel_data['Age'] <= 48)].sum()
 values_upselling_adults48 = values_upselling_adults48.tolist()
 
-values_upselling_adults66 = hotel_data[['Bar', 'Restaurant', 'Other', 'Breakfast', 'Revenues by day']].loc[
+values_upselling_adults66 = hotel_data[['Bar', 'Restaurant', 'Other', 'Breakfast', 'ADR']].loc[
     (49 <= hotel_data['Age']) & (hotel_data['Age'] <= 66)].sum()
 values_upselling_adults66 = values_upselling_adults66.tolist()
 
-values_upselling_adultsplus = hotel_data[['Bar', 'Restaurant', 'Other', 'Breakfast', 'Revenues by day']].loc[
+values_upselling_adultsplus = hotel_data[['Bar', 'Restaurant', 'Other', 'Breakfast', 'ADR']].loc[
     hotel_data['Age'] > 66].sum()
 values_upselling_adultsplus = values_upselling_adultsplus.tolist()
 
@@ -388,7 +388,7 @@ ups_adults_48_other_sum = adults_48['Other'].sum()
 ups_adults_66_other_sum = adults_66['Other'].sum()
 ups_adults_plus_other_sum = adults_plus['Other'].sum()
 
-ups_tot = hotel_data['Upselling'].sum()
+ups_tot = hotel_data['Additional Expenditures'].sum()
 
 ups_restaurant_tot = hotel_data['Restaurant'].sum()
 ups_bar_tot = hotel_data['Bar'].sum()

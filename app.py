@@ -6,7 +6,7 @@ import dash_html_components as html
 
 from data.age_values import *  # import used in this format because otherwise it won't work, even if it is not best practice
 from data.distr_channel_values import *
-from data.market_segments_values import *
+from data.travelling_group_values import *
 from data.customer_type_values import *
 from data.threed_plot import *
 from data.choropleth_map import *
@@ -20,10 +20,11 @@ app.layout = html.Div(children=[
                        'color': 'white',
                        'fontSize': 60,
                        'font-weight': 'bold',
-                       'backgroundColor': '#96151d'}),
+                       'backgroundColor': '#96151d',
+                       'marginTop': 0}),
 
     html.H4(children='''
-         Clustering customers based on daily revenues and satisfaction with machine learning
+         Clustering customers based on levels of daily Revenues Stream and Satisfaction Scores with Machine Learning
     ''',
             style={'color': 'black',
                    'textAlign': 'center',
@@ -37,11 +38,68 @@ app.layout = html.Div(children=[
                'backgroundColor': '#fafafa'}),
 
     dcc.Markdown(dedent(
-        '''Source code at the following [repository](https://github.com/dafo16ac/business-intelligence-df-2.2)'''),
+        '''Jupyter Notebook with EDA and Preprocesing at the following [link](https://nbviewer.jupyter.org/github/dafo16ac/BI_Market_Segmentation_v1.0/blob/main/BI_Market_Segmentation_Part1_v1.0.ipynb)'''),
         style={'textAlign': 'center',
                'color': 'black',
                'fontSize': 12,
                'backgroundColor': '#fafafa'}),
+
+    dcc.Markdown(dedent(
+        '''Source code of the web app at the following [repository](https://github.com/dafo16ac/business-intelligence-df-2.2)'''),
+        style={'textAlign': 'center',
+               'color': 'black',
+               'fontSize': 12,
+               'backgroundColor': '#fafafa'}),
+
+html.Div([
+
+        html.Div([html.P("    ", className='two columns'),],
+                 style={'backgroundColor': '#fafafa', 'font': 14, 'padding': 10,
+              'margin-bottom': '2rem', 'margin-top': '2rem'},
+        className="one column"),
+
+        html.Div([
+        html.P("Start by choosing the Cluster/Segment.. and changing the Time Span you wish to analyse",
+               style={'font-size': '22px', 'color': 'white', 'textAlign': 'center', 'font-weight': 'bold'},
+               className='one row'),
+        html.P("    ", className='one column'),
+
+        dcc.RadioItems(
+            id='radioItems_clusters',
+            options=[
+                {'label': cl_label_0, 'value': 0},
+                {'label': cl_label_1, 'value': 1},
+                {'label': cl_label_2, 'value': 2},
+                {'label': cl_label_3, 'value': 3},
+                {'label': cl_label_4, 'value': 4},
+                {'label': cl_label_5, 'value': 5},
+                {'label': cl_label_6, 'value': 6}],
+            labelStyle={#'display': 'inline-block',
+                        'font': 16, 'text-align': 'left'},
+            inputStyle={"margin-left": "15px"},  # margin between the select button and the next label
+            style={'color': 'white', 'font-size': '16px'},
+            className='six columns'),
+
+        html.Div([
+        html.P('I ',
+               style={'backgroundColor':'#96151d', 'font-size': '32px', 'color': '#96151d', 'textAlign': 'left'},
+               className='two rows'),
+
+        dcc.DatePickerRange(
+            id='my-date-picker-range',
+            min_date_allowed=dt(2016, 10, 1),
+            max_date_allowed=dt(2016, 11, 30),
+            start_date=dt(2016, 10, 1),
+            end_date=dt(2016, 11, 30),
+            initial_visible_month=dt(2016, 11, 1),
+            with_portal=True,
+            className='one row',
+            style={'fontSize': '11px', 'textAlign': 'center'}
+        ),
+            ], className='four columns'),
+    ], style={'backgroundColor': '#96151d', 'fontSize': 14, 'padding': 10,  'borderRadius': 1,#'border': '2px red solid',
+              'margin-bottom': '2rem', 'margin-top': '2rem'}, className='ten columns'),
+    ], className="row"),
 
     html.Div([
         dcc.Graph(
@@ -63,63 +121,40 @@ app.layout = html.Div(children=[
                         paper_bgcolor="#fafafa",
                         showlegend=True,
                         scene=dict(
-                            xaxis=dict(title='Rating'),
-                            yaxis=dict(title='Revenues per day'),
-                            zaxis=dict(title='Cross-selling per day'),
+                            xaxis=dict(title='Customer Satisfaction Rating'),
+                            yaxis=dict(title='ADR'),
+                            zaxis=dict(title='Additional Expenditures per day'),
                         )
                     ))}, className="seven columns"
         ),
 
-        dcc.Markdown(dedent('''
-
-        **ASSUMPTIONS:** Revenues is determined by volumes and prices. In the hotel industry, the volume of revenues strictly from the rooms is constrained by the maximum number of guests that can be hosted in the facilities, which is then reflected in the ADR metric.
-        The ability to charge higher prices, all else equal, depends on customer satisfaction and on the consequent longer term brand perception. 
-        In-house up- and cross-selling are other important components in affecting revenue streams.
-        The assumption of the present approach is that customer satisfaction, in-house up- and cross-selling can be better explained by behavioural and demographic factors of the customers hosted.
+        dcc.Markdown(dedent('''        
         
-        **RATIONALE:** *In order to increase overall revenues volumes while being able to charge higher prices, this model identifies those guests that are most satisfied and most willing to spend in-house.*
-        The two features of the model are: (1) daily revenues (sum of cross-selling and room rates revenues), and (2) rating scores satisfaction. The three-dimension graphical solution has been chosen to better decipher the impact of different sources of revenues.
-        
-        **RESULTS**: The model generates six clusters whose customers are characterized by distinctive level of revenues and rating scores.
-        By being able of slicing and dicing the characteristics of the most attractive clusters, management, marketing, 
-        and operations departments will have greater business intelligence and better understanding whom to target and on what to invest next. Worth to be noted, this dataset is not representative of real customers, and any pattern identified will depend on the specific case to which is applied.
+        The present market segmentation dashboard has been developed and deployed with the intention of being as intuitive as possible - as far as a portfolio project allows. Data is segmented based on `ADR` revenues and `Customer Satisfaction Rating`, then shown three-dimension to better visualizing the impact of different sources of revenues.
 
-        '''), className="five columns")
+        For deeper explanations on the business case, assumptions, rationale, methodology, .., please read the Notebook at the following [link](https://nbviewer.jupyter.org/github/dafo16ac/BI_Market_Segmentation_v1.0/blob/main/BI_Market_Segmentation_Part1_v1.0.ipynb).
+
+        For a quick view on the definitions of the terms used in this page, please refer to the *Terminology* section at the bottom of the web app.
+
+
+       
+
+        '''), style={'textAlign': 'center', 'fontSize': 15, 'marginTop': 110, 'marginBottom': 10}, className="four columns")
     ], className="row"),
 
     html.Div([
-        html.P("Start by choosing the cluster and the time span you wish to analyse",
-               style={'font-size': '22px', 'color': 'white', 'textAlign': 'center', 'font-weight': 'bold'},
+        html.P('I  ',
+               style={'backgroundColor':'#fafafa', 'font-size': '30px', 'color': '#fafafa', 'textAlign': 'left'},
                className='one row'),
-        html.P("    ", className='one column'),
+    ], className='row'),
 
-        dcc.RadioItems(
-            id='radioItems_clusters',
-            options=[
-                {'label': 'High TotRev & Rating', 'value': 3},
-                {'label': 'High Rating', 'value': 1},
-                {'label': 'High TotRev', 'value': 2},
-                {'label': 'Medium TotRev & Rating', 'value': 0},
-                {'label': 'Medium-low TotRev & Rating', 'value': 4},
-                {'label': 'Low TotRev', 'value': 5}],
-            labelStyle={'display': 'inline-block', 'font': 15},
-            inputStyle={"margin-left": "15px"},  # margin between the select button and the next label
-            style={'color': 'white', 'font-size': '12px'},
-            className='seven columns'),
-
-        dcc.DatePickerRange(
-            id='my-date-picker-range',
-            min_date_allowed=dt(2016, 10, 1),
-            max_date_allowed=dt(2016, 11, 30),
-            start_date=dt(2016, 10, 1),
-            end_date=dt(2016, 11, 30),
-            initial_visible_month=dt(2016, 11, 1),
-            className='three columns',
-            style={'font-size': '11px'}  # not working
-        ),
-    ], style={'backgroundColor': '#96151d', 'font': 14, 'padding': 10, 'border': '2px red solid', 'borderRadius': 5,
-              'margin-bottom': '2rem', 'margin-top': '2rem'},
-        className="row"),
+    html.Div([
+        html.P('Analysis of the Cluster: {}.'.format('[Select the Cluster from the list above]'),
+               id="analysis_cluster",
+               style={'backgroundColor':'#96151d', 'font-size': '30px', 'color': 'white', 'textAlign': 'center', 'font-weight': 'bold',
+                      'padding': 12},
+               className='one row'),
+    ], className='row'),
 
     html.Div([
         dcc.Graph(
@@ -134,15 +169,15 @@ app.layout = html.Div(children=[
 
             dcc.Dropdown(
                 id='dropdown_parameters',
-                placeholder="Select the parameter to be geographically displayed",
-                options=[{"label": i, "value": i} for i in values_choro[['TOT_revenues', 'Rating', 'Upselling']]]
+                placeholder="Select the metric to be geographically displayed",
+                options=[{"label": i, "value": i} for i in values_choro[['N° Clients (count)', 'ADR Adjusted (mean)', 'ADR Adjusted (total sum)', 'Customer Satisfaction Rating (mean)']]]
                 , className='one row'),
 
             dcc.Graph(
                 id='map-world',
                 config={'displayModeBar': False},
                 figure={
-                    'data': data_map_revenues,
+                    'data': data_map_revenues,  # set to show something at the starting
                     'layout': layout_map},
                 className='one row'
             ),
@@ -195,7 +230,7 @@ app.layout = html.Div(children=[
                                       xaxis6=dict(domain=[0.55, 0.66]),
 
                                       yaxis=dict(domain=[0.65, 0.72]),
-                                      yaxis1=dict(title='N° of guests', domain=[0.70, .74]),
+                                      yaxis1=dict(title='N° Clients', domain=[0.70, .74]),
                                       yaxis2=dict(domain=[0.85, 1]),
                                       yaxis3=dict(domain=[0.70, 1]),
                                       yaxis4=dict(domain=[0.70, 1]),
@@ -357,41 +392,29 @@ app.layout = html.Div(children=[
     html.Div([
         dcc.Markdown(dedent('''
 
-
-
-        **Methodological choice**
-
-        Whereas K-means is the most common clustering technique, it also resulted not optimal in this case, because K-means starts from centroids and it is optimal for clusters with a spheroic form.
-        In fact, in this model I use Spectral Clustering, which results being much more accurate and substantiating business intuitions.
-
-
-
-
         **Terminology**
 
-        'Revenues by day': average revenues per customer, considering strictly room revenues.
+        `ADR`: Daily rate of each room as average over the whole period, calculated taking into consideration all the persons staying in the room (DKK).
+        
+        `ADR Adjusted`: `ADR` plus the daily average of `Additional Expenditures` of all the persons staying in the room (DKK).
 
-        'Rating': used to measure guests' satisfaction, it is a rating score between 1-10.
+        `Customer Satisfaction Rating`: Average of the six satisfaction ratings that the clients have provided after the check-out regarding their experience (0 - 10 stars, steps of 0.5).
 
-        'Cross'-selling: average daily spenditure, divided by Restaurant, Breakfast, Bar, or Other sources of income.
+        `Additional Expenditures`: Sum of all extra expenditures of the clients staying in a same room over their entire staying (DKK). It includes the services provided directly by the hotel, hence affecting the top line. It is divided by `Restaurant`, `Breakfast`, `Bar`, or `Other` sources of income.
 
-        'TOT_ADR': sum of Revenues by day and Upselling revenues.
+        `Travelling Group`: guests segmentation according to the objective/companion they are traveling with.
 
-        'TOT_Revenues': TOT_ADR multiplied by the length of staying (nights), expressed in DKK.
-
-        'Travel Companion': guests segmentation according to the objective/companion they are traveling with.
-
-        'Customer type': Type of booking, assuming one of four categories; Contract (i.e. the booking has an allotment associated to it); Group (i.e. the booking is associated to a group); 
+        `Customer type`: Type of booking, assuming one of four categories being Contract (i.e. the booking has an allotment associated to it); Group (i.e. the booking is associated to a group); 
         Transient (i.e. the booking is not part of a group or contract, and is not associated to other transient booking); Transient-party (i.e. the booking is transient, but is associated to at least other transient booking).
 
-        'Distribution channel':  the different methods in which bookings for the hotel are made; they are TA/TO (“TA” means “TravelAgents” and “TO” means “TourOperators”); Direct (directly with the hotel); GDS (global distribution system).
+        `Distribution channel`:  the different methods in which bookings for the hotel are made. They are TA/TO (“TA” means “Travel Agents” and “TO” means “Tour Operators”); Direct (directly with the hotel); GDS (global distribution system).
 
 
 
         '''))
-    ], className='one row')
+    ], style={'marginLeft': 5}, className='one row')
 ],
-    style={'border-radius': 3}, )
+    style={'marginLeft': 0, 'padding': 0}, )
 
 """ CALLBACKS """
 
@@ -401,23 +424,23 @@ app.layout = html.Div(children=[
                dash.dependencies.Input('my-date-picker-range', 'start_date'),
                dash.dependencies.Input('my-date-picker-range', 'end_date')])
 def update_time_slider(radioItems_clusters_value, start_date, end_date):
-    cl_selected_r = hotel_data.loc[hotel_data['IDlabelsClusters'] == radioItems_clusters_value]
+    cl_selected_r = hotel_data.loc[hotel_data['Cluster'] == radioItems_clusters_value]
 
     cl_selected = cl_selected_r[
-        (cl_selected_r['TimeArrival'] >= start_date) & (cl_selected_r['TimeArrival'] <= end_date)].copy()
+        (cl_selected_r['Arrival Date'] >= start_date) & (cl_selected_r['Arrival Date'] <= end_date)].copy()
 
-    TimeSeriesDate_callback = cl_selected.groupby(['TimeArrival']).mean()
+    TimeSeriesDate_callback = cl_selected.groupby(['Arrival Date']).mean()
 
     revenues_scatter_callback = go.Scatter(x=TimeSeriesDate_callback.index,
-                                           y=TimeSeriesDate_callback['TOT_ADR'].rolling(window=3).mean(),
-                                           name='Tot Revenues per day',
+                                           y=TimeSeriesDate_callback['ADR Adjusted'].rolling(window=3).mean(),
+                                           name='ADR Adjusted',
                                            line=dict(
                                                color=('#dc3d4f'),
                                                width=1.5, ))
 
     rating_scatter_callback = go.Scatter(x=TimeSeriesDate_callback.index,
-                                         y=TimeSeriesDate_callback['Rating'].rolling(window=3).mean(),
-                                         name='Rating',
+                                         y=TimeSeriesDate_callback['Customer Satisfaction Rating'].rolling(window=3).mean(),
+                                         name='Customer Satisfaction Rating',
                                          yaxis='y2',
                                          line=dict(
                                              color=('#3DDCCA'),
@@ -433,9 +456,9 @@ def update_time_slider(radioItems_clusters_value, start_date, end_date):
                dash.dependencies.Input('my-date-picker-range', 'start_date'),
                dash.dependencies.Input('my-date-picker-range', 'end_date')])
 def update_table_blocks(radioItems_clusters_value, start_date, end_date):
-    cl_selected_r = hotel_data.loc[hotel_data['IDlabelsClusters'] == radioItems_clusters_value]
+    cl_selected_r = hotel_data.loc[hotel_data['Cluster'] == radioItems_clusters_value]
     cl_selected = cl_selected_r[
-        (cl_selected_r['TimeArrival'] >= start_date) & (cl_selected_r['TimeArrival'] <= end_date)].copy()
+        (cl_selected_r['Arrival Date'] >= start_date) & (cl_selected_r['Arrival Date'] <= end_date)].copy()
 
     # AGE BLOCK
     children_callback = cl_selected.loc[(cl_selected['Age'] < 18)]
@@ -451,23 +474,23 @@ def update_table_blocks(radioItems_clusters_value, start_date, end_date):
     adults_66_perc_callback = adults_66_callback['Age'].count()
     adults_plus_perc_callback = adults_plus_callback['Age'].count()
 
-    children_mean_callback = round(children_callback['Upselling'].mean(), ndigits=1)
-    adults_32_mean_callback = round(adults_32_callback['Upselling'].mean(), ndigits=1)
-    adults_48_mean_callback = round(adults_48_callback['Upselling'].mean(), ndigits=1)
-    adults_66_mean_callback = round(adults_66_callback['Upselling'].mean(), ndigits=1)
-    adults_plus_mean_callback = round(adults_plus_callback['Upselling'].mean(), ndigits=1)
+    children_mean_callback = round(children_callback['Additional Expenditures'].mean(), ndigits=1)
+    adults_32_mean_callback = round(adults_32_callback['Additional Expenditures'].mean(), ndigits=1)
+    adults_48_mean_callback = round(adults_48_callback['Additional Expenditures'].mean(), ndigits=1)
+    adults_66_mean_callback = round(adults_66_callback['Additional Expenditures'].mean(), ndigits=1)
+    adults_plus_mean_callback = round(adults_plus_callback['Additional Expenditures'].mean(), ndigits=1)
 
-    childrenRev_mean_callback = round(children_callback['Revenues by day'].mean(), ndigits=1)
-    youngRev_32_mean_callback = round(adults_32_callback['Revenues by day'].mean(), ndigits=1)
-    adultsRev_48_mean_callback = round(adults_48_callback['Revenues by day'].mean(), ndigits=1)
-    adultsRev_66_mean_callback = round(adults_66_callback['Revenues by day'].mean(), ndigits=1)
-    adultsRev_plus_mean_callback = round(adults_plus_callback['Revenues by day'].mean(), ndigits=1)
+    childrenRev_mean_callback = round(children_callback['ADR'].mean(), ndigits=1)
+    youngRev_32_mean_callback = round(adults_32_callback['ADR'].mean(), ndigits=1)
+    adultsRev_48_mean_callback = round(adults_48_callback['ADR'].mean(), ndigits=1)
+    adultsRev_66_mean_callback = round(adults_66_callback['ADR'].mean(), ndigits=1)
+    adultsRev_plus_mean_callback = round(adults_plus_callback['ADR'].mean(), ndigits=1)
 
-    children_rating_callback = round(children_callback['Rating'].mean(), ndigits=1)
-    adults_32_rating_callback = round(adults_32_callback['Rating'].mean(), ndigits=1)
-    adults_48_rating_callback = round(adults_48_callback['Rating'].mean(), ndigits=1)
-    adults_66_rating_callback = round(adults_66_callback['Rating'].mean(), ndigits=1)
-    adults_plus_rating_callback = round(adults_plus_callback['Rating'].mean(), ndigits=1)
+    children_rating_callback = round(children_callback['Customer Satisfaction Rating'].mean(), ndigits=1)
+    adults_32_rating_callback = round(adults_32_callback['Customer Satisfaction Rating'].mean(), ndigits=1)
+    adults_48_rating_callback = round(adults_48_callback['Customer Satisfaction Rating'].mean(), ndigits=1)
+    adults_66_rating_callback = round(adults_66_callback['Customer Satisfaction Rating'].mean(), ndigits=1)
+    adults_plus_rating_callback = round(adults_plus_callback['Customer Satisfaction Rating'].mean(), ndigits=1)
 
     children_nights_callback = round(children_callback['Nights'].mean(), ndigits=1)
     adults_32_nights_callback = round(adults_32_callback['Nights'].mean(), ndigits=1)
@@ -475,115 +498,115 @@ def update_table_blocks(radioItems_clusters_value, start_date, end_date):
     adults_66_nights_callback = round(adults_66_callback['Nights'].mean(), ndigits=1)
     adults_plus_nights_callback = round(adults_plus_callback['Nights'].mean(), ndigits=1)
 
-    children_wd_callback = round(children_callback['StaysInWeekNights'].mean(), ndigits=1)
-    adults_32_wd_callback = round(adults_32_callback['StaysInWeekNights'].mean(), ndigits=1)
-    adults_48_wd_callback = round(adults_48_callback['StaysInWeekNights'].mean(), ndigits=1)
-    adults_66_wd_callback = round(adults_66_callback['StaysInWeekNights'].mean(), ndigits=1)
-    adults_plus_wd_callback = round(adults_plus_callback['StaysInWeekNights'].mean(), ndigits=1)
+    children_wd_callback = round(children_callback['Week Nights'].mean(), ndigits=1)
+    adults_32_wd_callback = round(adults_32_callback['Week Nights'].mean(), ndigits=1)
+    adults_48_wd_callback = round(adults_48_callback['Week Nights'].mean(), ndigits=1)
+    adults_66_wd_callback = round(adults_66_callback['Week Nights'].mean(), ndigits=1)
+    adults_plus_wd_callback = round(adults_plus_callback['Week Nights'].mean(), ndigits=1)
 
-    children_we_callback = round(children_callback['StaysInWeekendNights'].mean(), ndigits=1)
-    adults_32_we_callback = round(adults_32_callback['StaysInWeekendNights'].mean(), ndigits=1)
-    adults_48_we_callback = round(adults_48_callback['StaysInWeekendNights'].mean(), ndigits=1)
-    adults_66_we_callback = round(adults_66_callback['StaysInWeekendNights'].mean(), ndigits=1)
-    adults_plus_we_callback = round(adults_plus_callback['StaysInWeekendNights'].mean(), ndigits=1)
+    children_we_callback = round(children_callback['Weekend Nights'].mean(), ndigits=1)
+    adults_32_we_callback = round(adults_32_callback['Weekend Nights'].mean(), ndigits=1)
+    adults_48_we_callback = round(adults_48_callback['Weekend Nights'].mean(), ndigits=1)
+    adults_66_we_callback = round(adults_66_callback['Weekend Nights'].mean(), ndigits=1)
+    adults_plus_we_callback = round(adults_plus_callback['Weekend Nights'].mean(), ndigits=1)
 
     try:
         children_nation_rev = \
-        children_callback.groupby('Country')['Revenues by day'].mean().sort_values(ascending=False).index[
+        children_callback.groupby('Country')['ADR'].mean().sort_values(ascending=False).index[
             0]
     except IndexError:
         children_nation_rev = 'null'
 
     try:
         adults_32_nation_rev = \
-            adults_32_callback.groupby('Country')['Revenues by day'].mean().sort_values(ascending=False).index[0]
+            adults_32_callback.groupby('Country')['ADR'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         adults_32_nation_rev = 'null'
 
     try:
         adults_48_nation_rev = \
-            adults_48_callback.groupby('Country')['Revenues by day'].mean().sort_values(ascending=False).index[0]
+            adults_48_callback.groupby('Country')['ADR'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         adults_48_nation_rev = 'null'
 
     try:
         adults_66_nation_rev = \
-            adults_66_callback.groupby('Country')['Revenues by day'].mean().sort_values(ascending=False).index[0]
+            adults_66_callback.groupby('Country')['ADR'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         adults_66_nation_rev = 'null'
 
     try:
         adults_plus_nation_rev = \
-            adults_plus_callback.groupby('Country')['Revenues by day'].mean().sort_values(ascending=False).index[0]
+            adults_plus_callback.groupby('Country')['ADR'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         adults_plus_nation_rev = 'null'
 
     try:
         children_nation_rating = \
-        children_callback.groupby('Country')['Rating'].mean().sort_values(ascending=False).index[0]
+        children_callback.groupby('Country')['Customer Satisfaction Rating'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         children_nation_rating = 'null'
 
     try:
         adults_32_nation_rating = \
-        adults_32_callback.groupby('Country')['Rating'].mean().sort_values(ascending=False).index[0]
+        adults_32_callback.groupby('Country')['Customer Satisfaction Rating'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         adults_32_nation_rating = 'null'
 
     try:
         adults_48_nation_rating = \
-        adults_48_callback.groupby('Country')['Rating'].mean().sort_values(ascending=False).index[0]
+        adults_48_callback.groupby('Country')['Customer Satisfaction Rating'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         adults_48_nation_rating = 'null'
 
     try:
         adults_66_nation_rating = \
-        adults_66_callback.groupby('Country')['Rating'].mean().sort_values(ascending=False).index[0]
+        adults_66_callback.groupby('Country')['Customer Satisfaction Rating'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         adults_66_nation_rating = 'null'
 
     try:
         adults_plus_nation_rating = \
-        adults_plus_callback.groupby('Country')['Rating'].mean().sort_values(ascending=False).index[
+        adults_plus_callback.groupby('Country')['Customer Satisfaction Rating'].mean().sort_values(ascending=False).index[
             0]
     except IndexError:
         adults_plus_nation_rating = 'null'
 
     try:
         children_nation_upselling = \
-        children_callback.groupby('Country')['Upselling'].mean().sort_values(ascending=False).index[
+        children_callback.groupby('Country')['Additional Expenditures'].mean().sort_values(ascending=False).index[
             0]
     except IndexError:
         children_nation_upselling = 'null'
 
     try:
         adults_32_nation_upselling = \
-            adults_32_callback.groupby('Country')['Upselling'].mean().sort_values(ascending=False).index[0]
+            adults_32_callback.groupby('Country')['Additional Expenditures'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         adults_32_nation_upselling = 'null'
 
     try:
         adults_48_nation_upselling = \
-            adults_48_callback.groupby('Country')['Upselling'].mean().sort_values(ascending=False).index[0]
+            adults_48_callback.groupby('Country')['Additional Expenditures'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         adults_48_nation_upselling = 'null'
 
     try:
         adults_66_nation_upselling = \
-            adults_66_callback.groupby('Country')['Upselling'].mean().sort_values(ascending=False).index[0]
+            adults_66_callback.groupby('Country')['Additional Expenditures'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         adults_66_nation_upselling = 'null'
 
     try:
         adults_plus_nation_upselling = \
-            adults_plus_callback.groupby('Country')['Upselling'].mean().sort_values(ascending=False).index[0]
+            adults_plus_callback.groupby('Country')['Additional Expenditures'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         adults_plus_nation_upselling = 'null'
 
     columns_age = ['children', 'adults_32', 'adults_48', 'adults_66', 'adults_plus']
-    index_age = ['Cross-selling mean', 'Revenues mean', 'Rating mean', 'Length staying mean (days)', ' - N° Weekdays',
-                 ' - N° Weekend days', 'Nationality highest revenues', 'Nationality highest rating',
-                 'Nationality highest upselling']
+    index_age = ['Additional Expenditures (mean, DKK)', 'ADR Adjusted (mean, DKK)', 'Satisfaction Rating (mean, 0-10)', 'Staying length (mean, days)', ' - N° Weekdays',
+                 ' - N° Weekend days', 'Nationality w/ highest ADR', 'Nationality w/ highest Rating',
+                 'Nationality w/ highest Add. Expend.']
 
     table_a = pd.DataFrame(data=[
         [children_mean_callback, adults_32_mean_callback, adults_48_mean_callback, adults_66_mean_callback,
@@ -629,9 +652,9 @@ def update_table_blocks(radioItems_clusters_value, start_date, end_date):
     )
 
     data_donuts_age1 = {
-        "values": [children_perc_callback, tot_age_perc_callback - children_perc_callback],
+        "values": [children_perc_callback, (tot_age_perc_callback - children_perc_callback)],
         "title": "{0:.1%}".format(children_perc_callback / (tot_age_perc_callback)),
-        "labels": ["Children"],
+        "labels": ["Children", "Other"],
         "textposition": "inside",
         "domain": {'x': [0.3125, 0.4375],
                    'y': [0.95, 1]},
@@ -649,7 +672,7 @@ def update_table_blocks(radioItems_clusters_value, start_date, end_date):
     data_donuts_age2 = {
         "values": [adults_32_perc_callback, tot_age_perc_callback - adults_32_perc_callback],
         "title": "{0:.1%}".format(adults_32_perc_callback / (tot_age_perc_callback)),
-        "labels": ["18-32"],
+        "labels": ["18-32", "Other"],
         "textposition": "inside",
         "domain": {'x': [0.453125, 0.578125],
                    'y': [0.95, 1]},
@@ -667,7 +690,7 @@ def update_table_blocks(radioItems_clusters_value, start_date, end_date):
     data_donuts_age3 = {
         "values": [adults_48_perc_callback, tot_age_perc_callback - adults_48_perc_callback],
         "title": "{0:.1%}".format(adults_48_perc_callback / (tot_age_perc_callback)),
-        "labels": ["33-48"],
+        "labels": ["33-48", "Other"],
         "domain": {'x': [0.59375, 0.71875],
                    'y': [0.95, 1]},
         "name": "Adults 33-48",
@@ -686,7 +709,7 @@ def update_table_blocks(radioItems_clusters_value, start_date, end_date):
     data_donuts_age4 = {
         "values": [adults_66_perc_callback, tot_age_perc_callback - adults_66_perc_callback],
         "title": "{0:.1%}".format(adults_66_perc_callback / (tot_age_perc_callback)),
-        "labels": ["49-66"],
+        "labels": ["49-66", "Other"],
         "textposition": "inside",
         "domain": {'x': [0.734375, 0.859375],
                    'y': [0.95, 1]},
@@ -704,7 +727,7 @@ def update_table_blocks(radioItems_clusters_value, start_date, end_date):
     data_donuts_age5 = {
         "values": [adults_plus_perc_callback, tot_age_perc_callback - adults_plus_perc_callback],
         "title": "{0:.1%}".format(adults_plus_perc_callback / (tot_age_perc_callback)),
-        "labels": ["67+"],
+        "labels": ["67+", "Other"],
         "textposition": "inside",
         "domain": {'x': [0.875, 1],
                    'y': [0.95, 1]},
@@ -720,36 +743,36 @@ def update_table_blocks(radioItems_clusters_value, start_date, end_date):
     }
 
     # MARKET SEGMENT BLOCK
-    Solo_Travellers = cl_selected.loc[cl_selected['MarketSegment'] == 'Solo Travellers']
-    Family = cl_selected.loc[cl_selected['MarketSegment'] == 'Family']
-    Groups = cl_selected.loc[cl_selected['MarketSegment'] == 'Groups']
-    Couples = cl_selected.loc[cl_selected['MarketSegment'] == 'Couples']
-    Business = cl_selected.loc[cl_selected['MarketSegment'] == 'Business']
+    Solo_Travellers = cl_selected.loc[cl_selected['Travelling Group'] == 'Solo Travellers']
+    Family = cl_selected.loc[cl_selected['Travelling Group'] == 'Family']
+    Groups = cl_selected.loc[cl_selected['Travelling Group'] == 'Groups']
+    Couples = cl_selected.loc[cl_selected['Travelling Group'] == 'Couples']
+    Business = cl_selected.loc[cl_selected['Travelling Group'] == 'Business']
 
-    tot_marks_perc = cl_selected['MarketSegment'].count()
-    Solo_Travellers_perc = Solo_Travellers['MarketSegment'].count()
-    Family_perc = Family['MarketSegment'].count()
-    Groups_perc = Groups['MarketSegment'].count()
-    Couples_perc = Couples['MarketSegment'].count()
-    Business_perc = Business['MarketSegment'].count()
+    tot_marks_perc = cl_selected['Travelling Group'].count()
+    Solo_Travellers_perc = Solo_Travellers['Travelling Group'].count()
+    Family_perc = Family['Travelling Group'].count()
+    Groups_perc = Groups['Travelling Group'].count()
+    Couples_perc = Couples['Travelling Group'].count()
+    Business_perc = Business['Travelling Group'].count()
 
-    Solo_Travellers_mean = round(Solo_Travellers['Upselling'].mean(), ndigits=1)
-    Family_mean = round(Family['Upselling'].mean(), ndigits=1)
-    Groups_mean = round(Groups['Upselling'].mean(), ndigits=1)
-    Couples_mean = round(Couples['Upselling'].mean(), ndigits=1)
-    Business_mean = round(Business['Upselling'].mean(), ndigits=1)
+    Solo_Travellers_mean = round(Solo_Travellers['Additional Expenditures'].mean(), ndigits=1)
+    Family_mean = round(Family['Additional Expenditures'].mean(), ndigits=1)
+    Groups_mean = round(Groups['Additional Expenditures'].mean(), ndigits=1)
+    Couples_mean = round(Couples['Additional Expenditures'].mean(), ndigits=1)
+    Business_mean = round(Business['Additional Expenditures'].mean(), ndigits=1)
 
-    Solo_TravellersRev_mean = round(Solo_Travellers['Revenues by day'].mean(), ndigits=1)
-    FamilyRev_mean = round(Family['Revenues by day'].mean(), ndigits=1)
-    GroupsRev_mean = round(Groups['Revenues by day'].mean(), ndigits=1)
-    CouplesRev_mean = round(Couples['Revenues by day'].mean(), ndigits=1)
-    BusinessRev_mean = round(Business['Revenues by day'].mean(), ndigits=1)
+    Solo_TravellersRev_mean = round(Solo_Travellers['ADR'].mean(), ndigits=1)
+    FamilyRev_mean = round(Family['ADR'].mean(), ndigits=1)
+    GroupsRev_mean = round(Groups['ADR'].mean(), ndigits=1)
+    CouplesRev_mean = round(Couples['ADR'].mean(), ndigits=1)
+    BusinessRev_mean = round(Business['ADR'].mean(), ndigits=1)
 
-    Solo_Travellers_rating = round(Solo_Travellers['Rating'].mean(), ndigits=1)
-    Family_rating = round(Family['Rating'].mean(), ndigits=1)
-    Groups_rating = round(Groups['Rating'].mean(), ndigits=1)
-    Couples_rating = round(Couples['Rating'].mean(), ndigits=1)
-    Business_rating = round(Business['Rating'].mean(), ndigits=1)
+    Solo_Travellers_rating = round(Solo_Travellers['Customer Satisfaction Rating'].mean(), ndigits=1)
+    Family_rating = round(Family['Customer Satisfaction Rating'].mean(), ndigits=1)
+    Groups_rating = round(Groups['Customer Satisfaction Rating'].mean(), ndigits=1)
+    Couples_rating = round(Couples['Customer Satisfaction Rating'].mean(), ndigits=1)
+    Business_rating = round(Business['Customer Satisfaction Rating'].mean(), ndigits=1)
 
     Solo_Travellers_nights = round(Solo_Travellers['Nights'].mean(), ndigits=1)
     Family_nights = round(Family['Nights'].mean(), ndigits=1)
@@ -757,94 +780,94 @@ def update_table_blocks(radioItems_clusters_value, start_date, end_date):
     Couples_nights = round(Couples['Nights'].mean(), ndigits=1)
     Business_nights = round(Business['Nights'].mean(), ndigits=1)
 
-    Solo_Travellers_wd = round(Solo_Travellers['StaysInWeekNights'].mean(), ndigits=1)
-    Family_wd = round(Family['StaysInWeekNights'].mean(), ndigits=1)
-    Groups_wd = round(Groups['StaysInWeekNights'].mean(), ndigits=1)
-    Couples_wd = round(Couples['StaysInWeekNights'].mean(), ndigits=1)
-    Business_wd = round(Business['StaysInWeekNights'].mean(), ndigits=1)
+    Solo_Travellers_wd = round(Solo_Travellers['Week Nights'].mean(), ndigits=1)
+    Family_wd = round(Family['Week Nights'].mean(), ndigits=1)
+    Groups_wd = round(Groups['Week Nights'].mean(), ndigits=1)
+    Couples_wd = round(Couples['Week Nights'].mean(), ndigits=1)
+    Business_wd = round(Business['Week Nights'].mean(), ndigits=1)
 
-    Solo_Travellers_we = round(Solo_Travellers['StaysInWeekendNights'].mean(), ndigits=1)
-    Family_we = round(Family['StaysInWeekendNights'].mean(), ndigits=1)
-    Groups_we = round(Groups['StaysInWeekendNights'].mean(), ndigits=1)
-    Couples_we = round(Couples['StaysInWeekendNights'].mean(), ndigits=1)
-    Business_we = round(Business['StaysInWeekendNights'].mean(), ndigits=1)
+    Solo_Travellers_we = round(Solo_Travellers['Weekend Nights'].mean(), ndigits=1)
+    Family_we = round(Family['Weekend Nights'].mean(), ndigits=1)
+    Groups_we = round(Groups['Weekend Nights'].mean(), ndigits=1)
+    Couples_we = round(Couples['Weekend Nights'].mean(), ndigits=1)
+    Business_we = round(Business['Weekend Nights'].mean(), ndigits=1)
 
     try:
         Solo_Travellers_nation_rev = \
-            Solo_Travellers.groupby('Country')['Revenues by day'].mean().sort_values(ascending=False).index[0]
+            Solo_Travellers.groupby('Country')['ADR'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         Solo_Travellers_nation_rev = 'null'
 
     try:
-        Family_nation_rev = Family.groupby('Country')['Revenues by day'].mean().sort_values(ascending=False).index[0]
+        Family_nation_rev = Family.groupby('Country')['ADR'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         Family_nation_rev = 'null'
 
     try:
-        Groups_nation_rev = Groups.groupby('Country')['Revenues by day'].mean().sort_values(ascending=False).index[0]
+        Groups_nation_rev = Groups.groupby('Country')['ADR'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         Groups_nation_rev = 'null'
 
     try:
-        Couples_nation_rev = Couples.groupby('Country')['Revenues by day'].mean().sort_values(ascending=False).index[0]
+        Couples_nation_rev = Couples.groupby('Country')['ADR'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         Couples_nation_rev = 'null'
 
     try:
-        Business_nation_rev = Business.groupby('Country')['Revenues by day'].mean().sort_values(ascending=False).index[
+        Business_nation_rev = Business.groupby('Country')['ADR'].mean().sort_values(ascending=False).index[
             0]
     except IndexError:
         Business_nation_rev = 'null'
 
     try:
         Solo_Travellers_nation_rating = \
-            Solo_Travellers.groupby('Country')['Rating'].mean().sort_values(ascending=False).index[0]
+            Solo_Travellers.groupby('Country')['Customer Satisfaction Rating'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         Solo_Travellers_nation_rating = 'null'
 
     try:
-        Family_nation_rating = Family.groupby('Country')['Rating'].mean().sort_values(ascending=False).index[0]
+        Family_nation_rating = Family.groupby('Country')['Customer Satisfaction Rating'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         Family_nation_rating = 'null'
 
     try:
-        Groups_nation_rating = Groups.groupby('Country')['Rating'].mean().sort_values(ascending=False).index[0]
+        Groups_nation_rating = Groups.groupby('Country')['Customer Satisfaction Rating'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         Groups_nation_rating = 'null'
 
     try:
-        Couples_nation_rating = Couples.groupby('Country')['Rating'].mean().sort_values(ascending=False).index[0]
+        Couples_nation_rating = Couples.groupby('Country')['Customer Satisfaction Rating'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         Couples_nation_rating = 'null'
 
     try:
-        Business_nation_rating = Business.groupby('Country')['Rating'].mean().sort_values(ascending=False).index[0]
+        Business_nation_rating = Business.groupby('Country')['Customer Satisfaction Rating'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         Business_nation_rating = 'null'
 
     try:
         Solo_Travellers_nation_upselling = \
-            Solo_Travellers.groupby('Country')['Upselling'].mean().sort_values(ascending=False).index[0]
+            Solo_Travellers.groupby('Country')['Additional Expenditures'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         Solo_Travellers_nation_upselling = 'null'
 
     try:
-        Family_nation_upselling = Family.groupby('Country')['Upselling'].mean().sort_values(ascending=False).index[0]
+        Family_nation_upselling = Family.groupby('Country')['Additional Expenditures'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         Family_nation_upselling = 'null'
 
     try:
-        Groups_nation_upselling = Groups.groupby('Country')['Upselling'].mean().sort_values(ascending=False).index[0]
+        Groups_nation_upselling = Groups.groupby('Country')['Additional Expenditures'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         Groups_nation_upselling = 'null'
 
     try:
-        Couples_nation_upselling = Couples.groupby('Country')['Upselling'].mean().sort_values(ascending=False).index[0]
+        Couples_nation_upselling = Couples.groupby('Country')['Additional Expenditures'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         Couples_nation_upselling = 'null'
 
     try:
-        Business_nation_upselling = Business.groupby('Country')['Upselling'].mean().sort_values(ascending=False).index[
+        Business_nation_upselling = Business.groupby('Country')['Additional Expenditures'].mean().sort_values(ascending=False).index[
             0]
     except IndexError:
         Business_nation_upselling = 'null'
@@ -892,7 +915,7 @@ def update_table_blocks(radioItems_clusters_value, start_date, end_date):
     data_donuts_marks1 = {
         "values": [Solo_Travellers_perc, tot_marks_perc - Solo_Travellers_perc],
         "title": "{0:.1%}".format(Solo_Travellers_perc / (tot_marks_perc)),
-        "labels": ["Solo Travellers"],
+        "labels": ["Solo Travellers", "Other"],
         "textposition": "inside",
         "domain": {'x': [0.3125, 0.4375],
                    'y': [0.54, 0.59]},
@@ -910,7 +933,7 @@ def update_table_blocks(radioItems_clusters_value, start_date, end_date):
     data_donuts_marks2 = {
         "values": [Family_perc, tot_marks_perc - Family_perc],
         "title": "{0:.1%}".format(Family_perc / (tot_marks_perc)),
-        "labels": ["US"],
+        "labels": ["US", "Other"],
         "textposition": "inside",
         "domain": {'x': [0.453125, 0.578125],
                    'y': [0.54, .59]},
@@ -928,7 +951,7 @@ def update_table_blocks(radioItems_clusters_value, start_date, end_date):
     data_donuts_marks3 = {
         "values": [Groups_perc, tot_marks_perc - Groups_perc],
         "title": "{0:.1%}".format(Groups_perc / (tot_marks_perc)),
-        "labels": ["US"],
+        "labels": ["US", "Other"],
         "textposition": "inside",
         "domain": {'x': [0.59375, 0.71875],
                    'y': [0.54, .59]},
@@ -946,7 +969,7 @@ def update_table_blocks(radioItems_clusters_value, start_date, end_date):
     data_donuts_marks5 = {
         "values": [Business_perc, tot_marks_perc - Business_perc],
         "title": "{0:.1%}".format(Business_perc / (tot_marks_perc)),
-        "labels": ["Business_perc"],
+        "labels": ["Business_perc", "Other"],
         "textposition": "inside",
         "domain": {'x': [0.734375, 0.859375],
                    'y': [0.54, .59]},
@@ -964,7 +987,7 @@ def update_table_blocks(radioItems_clusters_value, start_date, end_date):
     data_donuts_marks6 = {
         "values": [Couples_perc, tot_marks_perc - Couples_perc],
         "title": "{0:.1%}".format(Couples_perc / (tot_marks_perc)),
-        "labels": ["Couples_perc"],
+        "labels": ["Couples_perc", "Other"],
         "textposition": "inside",
         "domain": {'x': [0.875, 1],
                    'y': [0.54, .59]},
@@ -980,111 +1003,111 @@ def update_table_blocks(radioItems_clusters_value, start_date, end_date):
     }
 
     # CUSTOMER TYPE BLOCK
-    transient = cl_selected.loc[cl_selected['CustomerType'] == 'Transient']
-    transient_party = cl_selected.loc[cl_selected['CustomerType'] == 'Transient-Party']
-    contract = cl_selected.loc[cl_selected['CustomerType'] == 'Contract']
-    group = cl_selected.loc[cl_selected['CustomerType'] == 'Group']
+    transient = cl_selected.loc[cl_selected['Customer Type'] == 'Transient']
+    transient_party = cl_selected.loc[cl_selected['Customer Type'] == 'Transient-Party']
+    contract = cl_selected.loc[cl_selected['Customer Type'] == 'Contract']
+    group = cl_selected.loc[cl_selected['Customer Type'] == 'Group']
 
-    tot_customertype_perc = cl_selected['CustomerType'].count()
-    transient_perc = transient['CustomerType'].count()
-    transient_party_perc = transient_party['CustomerType'].count()
-    contract_perc = contract['CustomerType'].count()
-    group_perc = group['CustomerType'].count()
+    tot_customertype_perc = cl_selected['Customer Type'].count()
+    transient_perc = transient['Customer Type'].count()
+    transient_party_perc = transient_party['Customer Type'].count()
+    contract_perc = contract['Customer Type'].count()
+    group_perc = group['Customer Type'].count()
 
-    transient_mean = round(transient['Upselling'].mean(), ndigits=1)
-    transient_party_mean = round(transient_party['Upselling'].mean(), ndigits=1)
-    contract_mean = round(contract['Upselling'].mean(), ndigits=1)
-    group_mean = round(group['Upselling'].mean(), ndigits=1)
+    transient_mean = round(transient['Additional Expenditures'].mean(), ndigits=1)
+    transient_party_mean = round(transient_party['Additional Expenditures'].mean(), ndigits=1)
+    contract_mean = round(contract['Additional Expenditures'].mean(), ndigits=1)
+    group_mean = round(group['Additional Expenditures'].mean(), ndigits=1)
 
-    transientRev_mean = round(transient['Revenues by day'].mean(), ndigits=1)
-    transient_partyRev_mean = round(transient_party['Revenues by day'].mean(), ndigits=1)
-    contractRev_mean = round(contract['Revenues by day'].mean(), ndigits=1)
-    groupRev_mean = round(group['Revenues by day'].mean(), ndigits=1)
+    transientRev_mean = round(transient['ADR'].mean(), ndigits=1)
+    transient_partyRev_mean = round(transient_party['ADR'].mean(), ndigits=1)
+    contractRev_mean = round(contract['ADR'].mean(), ndigits=1)
+    groupRev_mean = round(group['ADR'].mean(), ndigits=1)
 
-    transient_rating = round(transient['Rating'].mean(), ndigits=1)
-    transient_party_rating = round(transient_party['Rating'].mean(), ndigits=1)
-    contract_rating = round(contract['Rating'].mean(), ndigits=1)
-    group_rating = round(group['Rating'].mean(), ndigits=1)
+    transient_rating = round(transient['Customer Satisfaction Rating'].mean(), ndigits=1)
+    transient_party_rating = round(transient_party['Customer Satisfaction Rating'].mean(), ndigits=1)
+    contract_rating = round(contract['Customer Satisfaction Rating'].mean(), ndigits=1)
+    group_rating = round(group['Customer Satisfaction Rating'].mean(), ndigits=1)
 
     transient_nights = round(transient['Nights'].mean(), ndigits=1)
     transient_party_nights = round(transient_party['Nights'].mean(), ndigits=1)
     contract_nights = round(contract['Nights'].mean(), ndigits=1)
     group_nights = round(group['Nights'].mean(), ndigits=1)
 
-    transient_wd = round(transient['StaysInWeekNights'].mean(), ndigits=1)
-    transient_party_wd = round(transient_party['StaysInWeekNights'].mean(), ndigits=1)
-    contract_wd = round(contract['StaysInWeekNights'].mean(), ndigits=1)
-    group_wd = round(group['StaysInWeekNights'].mean(), ndigits=1)
+    transient_wd = round(transient['Week Nights'].mean(), ndigits=1)
+    transient_party_wd = round(transient_party['Week Nights'].mean(), ndigits=1)
+    contract_wd = round(contract['Week Nights'].mean(), ndigits=1)
+    group_wd = round(group['Week Nights'].mean(), ndigits=1)
 
-    transient_we = round(transient['StaysInWeekendNights'].mean(), ndigits=1)
-    transient_party_we = round(transient_party['StaysInWeekendNights'].mean(), ndigits=1)
-    contract_we = round(contract['StaysInWeekendNights'].mean(), ndigits=1)
-    group_we = round(group['StaysInWeekendNights'].mean(), ndigits=1)
+    transient_we = round(transient['Weekend Nights'].mean(), ndigits=1)
+    transient_party_we = round(transient_party['Weekend Nights'].mean(), ndigits=1)
+    contract_we = round(contract['Weekend Nights'].mean(), ndigits=1)
+    group_we = round(group['Weekend Nights'].mean(), ndigits=1)
 
     try:
         transient_nation_rev = \
-            transient.groupby('Country')['Revenues by day'].mean().sort_values(ascending=False).index[0]
+            transient.groupby('Country')['ADR'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         transient_nation_rev = 'null'
 
     try:
         transient_party_nation_rev = \
-            transient_party.groupby('Country')['Revenues by day'].mean().sort_values(ascending=False).index[0]
+            transient_party.groupby('Country')['ADR'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         transient_party_nation_rev = 'null'
 
     try:
-        contract_nation_rev = contract.groupby('Country')['Revenues by day'].mean().sort_values(ascending=False).index[
+        contract_nation_rev = contract.groupby('Country')['ADR'].mean().sort_values(ascending=False).index[
             0]
     except IndexError:
         contract_nation_rev = 'null'
 
     try:
-        group_nation_rev = group.groupby('Country')['Revenues by day'].mean().sort_values(ascending=False).index[0]
+        group_nation_rev = group.groupby('Country')['ADR'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         group_nation_rev = 'null'
 
     try:
-        transient_nation_rating = transient.groupby('Country')['Rating'].mean().sort_values(ascending=False).index[0]
+        transient_nation_rating = transient.groupby('Country')['Customer Satisfaction Rating'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         transient_nation_rating = 'null'
 
     try:
         transient_party_nation_rating = \
-            transient_party.groupby('Country')['Rating'].mean().sort_values(ascending=False).index[0]
+            transient_party.groupby('Country')['Customer Satisfaction Rating'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         transient_party_nation_rating = 'null'
 
     try:
-        contract_nation_rating = contract.groupby('Country')['Rating'].mean().sort_values(ascending=False).index[0]
+        contract_nation_rating = contract.groupby('Country')['Customer Satisfaction Rating'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         contract_nation_rating = 'null'
 
     try:
-        group_nation_rating = group.groupby('Country')['Rating'].mean().sort_values(ascending=False).index[0]
+        group_nation_rating = group.groupby('Country')['Customer Satisfaction Rating'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         group_nation_rating = 'null'
 
     try:
         transient_nation_upselling = \
-            transient.groupby('Country')['Upselling'].mean().sort_values(ascending=False).index[0]
+            transient.groupby('Country')['Additional Expenditures'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         transient_nation_upselling = 'null'
 
     try:
         transient_party_nation_upselling = \
-            transient_party.groupby('Country')['Upselling'].mean().sort_values(ascending=False).index[0]
+            transient_party.groupby('Country')['Additional Expenditures'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         transient_party_nation_upselling = 'null'
 
     try:
-        contract_nation_upselling = contract.groupby('Country')['Upselling'].mean().sort_values(ascending=False).index[
+        contract_nation_upselling = contract.groupby('Country')['Additional Expenditures'].mean().sort_values(ascending=False).index[
             0]
     except IndexError:
         contract_nation_upselling = 'null'
 
     try:
-        group_nation_upselling = group.groupby('Country')['Upselling'].mean().sort_values(ascending=False).index[0]
+        group_nation_upselling = group.groupby('Country')['Additional Expenditures'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         group_nation_upselling = 'null'
 
@@ -1130,7 +1153,7 @@ def update_table_blocks(radioItems_clusters_value, start_date, end_date):
     data_donuts_cs1 = {
         "values": [transient_perc, tot_customertype_perc - transient_perc],
         "title": "{0:.1%}".format(transient_perc / (tot_customertype_perc)),
-        "labels": ["Transient"],
+        "labels": ["Transient", "Other"],
         "textposition": "inside",
         "domain": {'x': [0.3594, 0.46875],
                    'y': [0.24, 0.295]},
@@ -1148,7 +1171,7 @@ def update_table_blocks(radioItems_clusters_value, start_date, end_date):
 
     data_donuts_cs2 = {
         "values": [transient_party_perc, tot_customertype_perc - transient_party_perc],
-        "labels": ["Transient-party"],
+        "labels": ["Transient-party", "Other"],
         "title": "{0:.1%}".format(transient_party_perc / (tot_customertype_perc)),
         "textposition": "inside",
         "domain": {'x': [0.53125, 0.640625],
@@ -1168,7 +1191,7 @@ def update_table_blocks(radioItems_clusters_value, start_date, end_date):
     data_donuts_cs3 = {
         "values": [contract_perc, tot_customertype_perc - contract_perc],
         "title": "{0:.1%}".format(contract_perc / (tot_customertype_perc)),
-        "labels": ["Contract"],
+        "labels": ["Contract", "Other"],
         "textposition": "inside",
         "domain": {'x': [0.703125, 0.8125],
                    'y': [0.24, 0.295]},
@@ -1186,7 +1209,7 @@ def update_table_blocks(radioItems_clusters_value, start_date, end_date):
     data_donuts_cs4 = {
         "values": [group_perc, tot_customertype_perc - group_perc],
         "title": "{0:.1%}".format(group_perc / (tot_customertype_perc)),
-        "labels": ["Group"],
+        "labels": ["Group", "Other"],
         "domain": {'x': [0.875, 1],
                    'y': [0.24, 0.295]},
         "name": "Group",
@@ -1242,7 +1265,7 @@ def update_table_blocks(radioItems_clusters_value, start_date, end_date):
                                   xaxis6=dict(domain=[0.55, 0.66]),
 
                                   yaxis=dict(domain=[0.65, 0.72]),
-                                  yaxis1=dict(title='N° of guests', domain=[0.70, 0.74]),
+                                  yaxis1=dict(title='N° Clients', domain=[0.70, 0.74]),
                                   yaxis2=dict(domain=[0.85, 1]),
                                   yaxis3=dict(domain=[0.70, 1]),
                                   yaxis4=dict(domain=[0.70, 1]),
@@ -1291,28 +1314,28 @@ def update_table_blocks(radioItems_clusters_value, start_date, end_date):
                dash.dependencies.Input('my-date-picker-range', 'start_date'),
                dash.dependencies.Input('my-date-picker-range', 'end_date')])
 def update_pie_marks(radioItems_clusters_value, start_date, end_date):
-    cl_selected_r = hotel_data.loc[hotel_data['IDlabelsClusters'] == radioItems_clusters_value]
+    cl_selected_r = hotel_data.loc[hotel_data['Cluster'] == radioItems_clusters_value]
     cl_selected = cl_selected_r[
-        (cl_selected_r['TimeArrival'] >= start_date) & (cl_selected_r['TimeArrival'] <= end_date)]
+        (cl_selected_r['Arrival Date'] >= start_date) & (cl_selected_r['Arrival Date'] <= end_date)]
 
-    values_upselling_st = cl_selected[['Bar', 'Restaurant', 'Other', 'Breakfast', 'Revenues by day']].loc[
-        cl_selected['MarketSegment'] == 'Solo Travellers'].sum()
+    values_upselling_st = cl_selected[['Bar', 'Restaurant', 'Other', 'Breakfast', 'ADR']].loc[
+        cl_selected['Travelling Group'] == 'Solo Travellers'].sum()
     values_upselling_st = values_upselling_st.tolist()
 
-    values_upselling_fam = cl_selected[['Bar', 'Restaurant', 'Other', 'Breakfast', 'Revenues by day']].loc[
-        cl_selected['MarketSegment'] == 'Family'].sum()
+    values_upselling_fam = cl_selected[['Bar', 'Restaurant', 'Other', 'Breakfast', 'ADR']].loc[
+        cl_selected['Travelling Group'] == 'Family'].sum()
     values_upselling_fam = values_upselling_fam.tolist()
 
-    values_upselling_groups = cl_selected[['Bar', 'Restaurant', 'Other', 'Breakfast', 'Revenues by day']].loc[
-        cl_selected['MarketSegment'] == 'Groups'].sum()
+    values_upselling_groups = cl_selected[['Bar', 'Restaurant', 'Other', 'Breakfast', 'ADR']].loc[
+        cl_selected['Travelling Group'] == 'Groups'].sum()
     values_upselling_groups = values_upselling_groups.tolist()
 
-    values_upselling_Business = cl_selected[['Bar', 'Restaurant', 'Other', 'Breakfast', 'Revenues by day']].loc[
-        cl_selected['MarketSegment'] == 'Business'].sum()
+    values_upselling_Business = cl_selected[['Bar', 'Restaurant', 'Other', 'Breakfast', 'ADR']].loc[
+        cl_selected['Travelling Group'] == 'Business'].sum()
     values_upselling_Business = values_upselling_Business.tolist()
 
-    values_upselling_couples = cl_selected[['Bar', 'Restaurant', 'Other', 'Breakfast', 'Revenues by day']].loc[
-        cl_selected['MarketSegment'] == 'Couples'].sum()
+    values_upselling_couples = cl_selected[['Bar', 'Restaurant', 'Other', 'Breakfast', 'ADR']].loc[
+        cl_selected['Travelling Group'] == 'Couples'].sum()
     values_upselling_couples = values_upselling_couples.tolist()
 
     values_upselling_marks = [values_upselling_st, values_upselling_fam, values_upselling_groups,
@@ -1355,7 +1378,7 @@ def update_pie_marks(radioItems_clusters_value, start_date, end_date):
         "hoverinfo": "values",
         "type": "pie",
         "sort": False,
-        "title": 'Aggregated Expenditures per segment selected',
+        "title": 'Additional Expenditures per selected Sub-Segment',
         "textinfo": "none",
         'marker': {'colors': ['#ffcb94', '#6cff99', '#c5bef1', '#a9efe8', '#dc3d4f']}
     }
@@ -1370,7 +1393,7 @@ def update_pie_marks(radioItems_clusters_value, start_date, end_date):
         "hoverinfo": "values",
         "type": "pie",
         "sort": False,
-        "title": 'Aggregated Expenditures per segment selected',
+        "title": 'Additional Expenditures per selected Sub-Segment',
         "textinfo": "none",
         'marker': {'colors': ['#ffcb94', '#6cff99', '#c5bef1', '#a9efe8', '#dc3d4f']}
     }
@@ -1385,7 +1408,7 @@ def update_pie_marks(radioItems_clusters_value, start_date, end_date):
         "hoverinfo": "values",
         "type": "pie",
         "sort": False,
-        "title": 'Aggregated Expenditures per segment selected',
+        "title": 'Additional Expenditures per selected Sub-Segment',
         "textinfo": "none",
         'marker': {'colors': ['#ffcb94', '#6cff99', '#c5bef1', '#a9efe8', '#dc3d4f']}
     }
@@ -1400,7 +1423,7 @@ def update_pie_marks(radioItems_clusters_value, start_date, end_date):
         "hoverinfo": "values",
         "type": "pie",
         "sort": False,
-        "title": 'Aggregated Expenditures per segment selected',
+        "title": 'Additional Expenditures per selected Sub-Segment',
         "textinfo": "none",
         'marker': {'colors': ['#ffcb94', '#6cff99', '#c5bef1', '#a9efe8', '#dc3d4f']}
     }
@@ -1415,7 +1438,7 @@ def update_pie_marks(radioItems_clusters_value, start_date, end_date):
         "hoverinfo": "values",
         "type": "pie",
         "sort": False,
-        "title": 'Aggregated Expenditures per segment selected',
+        "title": 'Additional Expenditures per selected Sub-Segment',
         "textinfo": "none",
         'marker': {'colors': ['#ffcb94', '#6cff99', '#c5bef1', '#a9efe8', '#dc3d4f']}
     }
@@ -1423,18 +1446,18 @@ def update_pie_marks(radioItems_clusters_value, start_date, end_date):
     values_upselling_pie_marks = [pie_marks_st, pie_marks_fam, pie_marks_groups, pie_marks_couples, pie_marks_business]
 
     """ MARKET SEGMENT UPSELLING VALUES """
-    Solo_Travellers = cl_selected.loc[cl_selected['MarketSegment'] == 'Solo Travellers']
-    Family = cl_selected.loc[cl_selected['MarketSegment'] == 'Family']
-    Groups = cl_selected.loc[cl_selected['MarketSegment'] == 'Groups']
-    Couples = cl_selected.loc[cl_selected['MarketSegment'] == 'Couples']
-    Business = cl_selected.loc[cl_selected['MarketSegment'] == 'Business']
+    Solo_Travellers = cl_selected.loc[cl_selected['Travelling Group'] == 'Solo Travellers']
+    Family = cl_selected.loc[cl_selected['Travelling Group'] == 'Family']
+    Groups = cl_selected.loc[cl_selected['Travelling Group'] == 'Groups']
+    Couples = cl_selected.loc[cl_selected['Travelling Group'] == 'Couples']
+    Business = cl_selected.loc[cl_selected['Travelling Group'] == 'Business']
 
-    tot_marks_perc = cl_selected['MarketSegment'].count()
-    Solo_Travellers_perc = Solo_Travellers['MarketSegment'].count()
-    Family_perc = Family['MarketSegment'].count()
-    Groups_perc = Groups['MarketSegment'].count()
-    Couples_perc = Couples['MarketSegment'].count()
-    Business_perc = Business['MarketSegment'].count()
+    tot_marks_perc = cl_selected['Travelling Group'].count()
+    Solo_Travellers_perc = Solo_Travellers['Travelling Group'].count()
+    Family_perc = Family['Travelling Group'].count()
+    Groups_perc = Groups['Travelling Group'].count()
+    Couples_perc = Couples['Travelling Group'].count()
+    Business_perc = Business['Travelling Group'].count()
 
     ups_Solo_Travellers_restaurant_rev_mean = round(Solo_Travellers['Restaurant'].mean(), 0)
     ups_Family_restaurant_rev_mean = round(Family['Restaurant'].mean(), 0)
@@ -1495,7 +1518,7 @@ def update_pie_marks(radioItems_clusters_value, start_date, end_date):
     ups_Couples_other_sum = Couples['Other'].sum()
     ups_Business_other_sum = Business['Other'].sum()
 
-    ups_tot = cl_selected['Upselling'].sum()
+    ups_tot = cl_selected['Additional Expenditures'].sum()
 
     ups_Solo_Travellers_restaurant_perc = "{0:.1%}".format(ups_Solo_Travellers_restaurant_sum / ups_tot)
     ups_Family_restaurant_perc = "{0:.1%}".format(ups_Family_restaurant_sum / ups_tot)
@@ -1579,10 +1602,10 @@ def update_pie_marks(radioItems_clusters_value, start_date, end_date):
                dash.dependencies.Input('my-date-picker-range', 'start_date'),
                dash.dependencies.Input('my-date-picker-range', 'end_date')])
 def update_pie_age(radioItems_clusters_value, start_date, end_date):
-    cl_selected_r = hotel_data.loc[hotel_data['IDlabelsClusters'] == radioItems_clusters_value]
+    cl_selected_r = hotel_data.loc[hotel_data['Cluster'] == radioItems_clusters_value]
     cl_selected = cl_selected_r[
-        (cl_selected_r['TimeArrival'] >= start_date) & (cl_selected_r['TimeArrival'] <= end_date)]
-    # cl_selected['TimeArrival'] = pd.to_datetime(cl_selected['TimeArrival'])
+        (cl_selected_r['Arrival Date'] >= start_date) & (cl_selected_r['Arrival Date'] <= end_date)]
+    # cl_selected['Arrival Date'] = pd.to_datetime(cl_selected['Arrival Date'])
 
     cl_selected['Age'] = cl_selected['Age'].round(0).copy()
 
@@ -1592,7 +1615,7 @@ def update_pie_age(radioItems_clusters_value, start_date, end_date):
     adults_66 = cl_selected.loc[(49 <= cl_selected['Age']) & (cl_selected['Age'] <= 66)]
     adults_plus = cl_selected.loc[cl_selected['Age'] > 66]
 
-    ups_tot = cl_selected['Upselling'].sum()
+    ups_tot = cl_selected['Additional Expenditures'].sum()
     tot_age_perc = cl_selected['Age'].count()
     children_perc = children['Age'].count()
     adults_32_perc = adults_32['Age'].count()
@@ -1600,23 +1623,23 @@ def update_pie_age(radioItems_clusters_value, start_date, end_date):
     adults_66_perc = adults_66['Age'].count()
     adults_plus_perc = adults_plus['Age'].count()
 
-    values_upselling_children = cl_selected[['Bar', 'Restaurant', 'Other', 'Breakfast', 'Revenues by day']].loc[
+    values_upselling_children = cl_selected[['Bar', 'Restaurant', 'Other', 'Breakfast', 'ADR']].loc[
         cl_selected['Age'] < 18].sum()
     values_upselling_children = values_upselling_children.tolist()
 
-    values_upselling_adults32 = cl_selected[['Bar', 'Restaurant', 'Other', 'Breakfast', 'Revenues by day']].loc[
+    values_upselling_adults32 = cl_selected[['Bar', 'Restaurant', 'Other', 'Breakfast', 'ADR']].loc[
         (18 <= cl_selected['Age']) & (cl_selected['Age'] <= 32)].sum()
     values_upselling_adults32 = values_upselling_adults32.tolist()
 
-    values_upselling_adults48 = cl_selected[['Bar', 'Restaurant', 'Other', 'Breakfast', 'Revenues by day']].loc[
+    values_upselling_adults48 = cl_selected[['Bar', 'Restaurant', 'Other', 'Breakfast', 'ADR']].loc[
         (33 <= cl_selected['Age']) & (cl_selected['Age'] <= 48)].sum()
     values_upselling_adults48 = values_upselling_adults48.tolist()
 
-    values_upselling_adults66 = cl_selected[['Bar', 'Restaurant', 'Other', 'Breakfast', 'Revenues by day']].loc[
+    values_upselling_adults66 = cl_selected[['Bar', 'Restaurant', 'Other', 'Breakfast', 'ADR']].loc[
         (49 <= cl_selected['Age']) & (cl_selected['Age'] <= 66)].sum()
     values_upselling_adults66 = values_upselling_adults66.tolist()
 
-    values_upselling_adultsplus = cl_selected[['Bar', 'Restaurant', 'Other', 'Breakfast', 'Revenues by day']].loc[
+    values_upselling_adultsplus = cl_selected[['Bar', 'Restaurant', 'Other', 'Breakfast', 'ADR']].loc[
         cl_selected['Age'] > 66].sum()
     values_upselling_adultsplus = values_upselling_adultsplus.tolist()
 
@@ -1660,7 +1683,7 @@ def update_pie_age(radioItems_clusters_value, start_date, end_date):
         "hoverinfo": "values",
         "type": "pie",
         "sort": False,
-        "title": 'Aggregated Expenditures per segment selected',
+        "title": 'Additional Expenditures per selected Sub-Segment',
         "textinfo": "none",
         'marker': {'colors': ['#ffcb94', '#6cff99', '#c5bef1', '#a9efe8', '#dc3d4f']},
     }
@@ -1675,7 +1698,7 @@ def update_pie_age(radioItems_clusters_value, start_date, end_date):
         "hoverinfo": "values",
         "type": "pie",
         "sort": False,
-        "title": 'Aggregated Expenditures per segment selected',
+        "title": 'Additional Expenditures per selected Sub-Segment',
         "textinfo": "none",
         'marker': {'colors': ['#ffcb94', '#6cff99', '#c5bef1', '#a9efe8', '#dc3d4f']}
     }
@@ -1690,7 +1713,7 @@ def update_pie_age(radioItems_clusters_value, start_date, end_date):
         "hoverinfo": "values",
         "type": "pie",
         "sort": False,
-        "title": 'Aggregated Expenditures per segment selected',
+        "title": 'Additional Expenditures per selected Sub-Segment',
         "textinfo": "none",
         'marker': {'colors': ['#ffcb94', '#6cff99', '#c5bef1', '#a9efe8', '#dc3d4f']}
     }
@@ -1705,7 +1728,7 @@ def update_pie_age(radioItems_clusters_value, start_date, end_date):
         "hoverinfo": "values",
         "type": "pie",
         "sort": False,
-        "title": 'Aggregated Expenditures per segment selected',
+        "title": 'Additional Expenditures per selected Sub-Segment',
         "textinfo": "none",
         'marker': {'colors': ['#ffcb94', '#6cff99', '#c5bef1', '#a9efe8', '#dc3d4f']}
     }
@@ -1720,7 +1743,7 @@ def update_pie_age(radioItems_clusters_value, start_date, end_date):
         "hoverinfo": "values",
         "type": "pie",
         "sort": False,
-        "title": 'Aggregated Expenditures per segment selected',
+        "title": 'Additional Expenditures per selected Sub-Segment',
         "textinfo": "none",
         'marker': {'colors': ['#ffcb94', '#6cff99', '#c5bef1', '#a9efe8', '#dc3d4f']}
     }
@@ -1894,30 +1917,30 @@ def update_pie_age(radioItems_clusters_value, start_date, end_date):
                dash.dependencies.Input('my-date-picker-range', 'start_date'),
                dash.dependencies.Input('my-date-picker-range', 'end_date')])
 def update_pie_ct(radioItems_clusters_value, start_date, end_date):
-    cl_selected_r = hotel_data.loc[hotel_data['IDlabelsClusters'] == radioItems_clusters_value]
+    cl_selected_r = hotel_data.loc[hotel_data['Cluster'] == radioItems_clusters_value]
     cl_selected = cl_selected_r[
-        (cl_selected_r['TimeArrival'] >= start_date) & (cl_selected_r['TimeArrival'] <= end_date)]
+        (cl_selected_r['Arrival Date'] >= start_date) & (cl_selected_r['Arrival Date'] <= end_date)]
 
-    transient = cl_selected.loc[cl_selected['CustomerType'] == 'Transient']
-    transient_party = cl_selected.loc[cl_selected['CustomerType'] == 'Transient-Party']
-    contract = cl_selected.loc[cl_selected['CustomerType'] == 'Contract']
-    group = cl_selected.loc[cl_selected['CustomerType'] == 'Group']
+    transient = cl_selected.loc[cl_selected['Customer Type'] == 'Transient']
+    transient_party = cl_selected.loc[cl_selected['Customer Type'] == 'Transient-Party']
+    contract = cl_selected.loc[cl_selected['Customer Type'] == 'Contract']
+    group = cl_selected.loc[cl_selected['Customer Type'] == 'Group']
 
     # Customer type pie
-    values_upselling_transient = cl_selected[['Bar', 'Restaurant', 'Other', 'Breakfast', 'Revenues by day']].loc[
-        cl_selected['CustomerType'] == 'Transient'].sum().copy()
+    values_upselling_transient = cl_selected[['Bar', 'Restaurant', 'Other', 'Breakfast', 'ADR']].loc[
+        cl_selected['Customer Type'] == 'Transient'].sum().copy()
     values_upselling_transient = values_upselling_transient.tolist()
 
-    values_upselling_transientP = cl_selected[['Bar', 'Restaurant', 'Other', 'Breakfast', 'Revenues by day']].loc[
-        cl_selected['CustomerType'] == 'Transient-Party'].sum().copy()
+    values_upselling_transientP = cl_selected[['Bar', 'Restaurant', 'Other', 'Breakfast', 'ADR']].loc[
+        cl_selected['Customer Type'] == 'Transient-Party'].sum().copy()
     values_upselling_transientP = values_upselling_transientP.tolist()
 
-    values_upselling_contract = cl_selected[['Bar', 'Restaurant', 'Other', 'Breakfast', 'Revenues by day']].loc[
-        cl_selected['CustomerType'] == 'Contract'].sum().copy()
+    values_upselling_contract = cl_selected[['Bar', 'Restaurant', 'Other', 'Breakfast', 'ADR']].loc[
+        cl_selected['Customer Type'] == 'Contract'].sum().copy()
     values_upselling_contract = values_upselling_contract.tolist()
 
-    values_upselling_group = cl_selected[['Bar', 'Restaurant', 'Other', 'Breakfast', 'Revenues by day']].loc[
-        cl_selected['CustomerType'] == 'Group'].sum().copy()
+    values_upselling_group = cl_selected[['Bar', 'Restaurant', 'Other', 'Breakfast', 'ADR']].loc[
+        cl_selected['Customer Type'] == 'Group'].sum().copy()
     values_upselling_group = values_upselling_group.tolist()
 
     updatemenus_ct = list(
@@ -1957,7 +1980,7 @@ def update_pie_ct(radioItems_clusters_value, start_date, end_date):
         "hoverinfo": "values",
         "type": "pie",
         "sort": False,
-        "title": 'Aggregated Expenditures per segment selected',
+        "title": 'Additional Expenditures per selected Sub-Segment',
         "textinfo": "none",
         'marker': {'colors': ['#ffcb94', '#6cff99', '#c5bef1', '#a9efe8', '#dc3d4f']}
     }
@@ -1972,7 +1995,7 @@ def update_pie_ct(radioItems_clusters_value, start_date, end_date):
         "hoverinfo": "values",
         "type": "pie",
         "sort": False,
-        "title": 'Aggregated Expenditures per segment selected',
+        "title": 'Additional Expenditures per selected Sub-Segment',
         "textinfo": "none",
         'marker': {'colors': ['#ffcb94', '#6cff99', '#c5bef1', '#a9efe8', '#dc3d4f']}
     }
@@ -1987,7 +2010,7 @@ def update_pie_ct(radioItems_clusters_value, start_date, end_date):
         "hoverinfo": "values",
         "type": "pie",
         "sort": False,
-        "title": 'Aggregated Expenditures per segment selected',
+        "title": 'Additional Expenditures per selected Sub-Segment',
         "textinfo": "none",
         'marker': {'colors': ['#ffcb94', '#6cff99', '#c5bef1', '#a9efe8', '#dc3d4f']}
     }
@@ -2002,7 +2025,7 @@ def update_pie_ct(radioItems_clusters_value, start_date, end_date):
         "hoverinfo": "values",
         "type": "pie",
         "sort": False,
-        "title": 'Aggregated Expenditures per segment selected',
+        "title": 'Additional Expenditures per selected Sub-Segment',
         "textinfo": "none",
         'marker': {'colors': ['#ffcb94', '#6cff99', '#c5bef1', '#a9efe8', '#dc3d4f']}
     }
@@ -2059,7 +2082,7 @@ def update_pie_ct(radioItems_clusters_value, start_date, end_date):
     ups_contract_other_sum = contract['Other'].sum()
     ups_group_other_sum = group['Other'].sum()
 
-    ups_tot = cl_selected['Upselling'].sum()
+    ups_tot = cl_selected['Additional Expenditures'].sum()
 
     ups_transient_restaurant_perc = "{0:.1%}".format(ups_transient_restaurant_sum / ups_tot)
     ups_transient_party_restaurant_perc = "{0:.1%}".format(ups_transient_party_restaurant_sum / ups_tot)
@@ -2131,117 +2154,117 @@ def update_pie_ct(radioItems_clusters_value, start_date, end_date):
                dash.dependencies.Input('my-date-picker-range', 'start_date'),
                dash.dependencies.Input('my-date-picker-range', 'end_date')])
 def update_table_dchannel(radioItems_clusters_value, start_date, end_date):
-    cl_selected_r = hotel_data.loc[hotel_data['IDlabelsClusters'] == radioItems_clusters_value]
+    cl_selected_r = hotel_data.loc[hotel_data['Cluster'] == radioItems_clusters_value]
     cl_selected = cl_selected_r[
-        (cl_selected_r['TimeArrival'] >= start_date) & (cl_selected_r['TimeArrival'] <= end_date)]
+        (cl_selected_r['Arrival Date'] >= start_date) & (cl_selected_r['Arrival Date'] <= end_date)]
 
-    TATO = cl_selected.loc[cl_selected['DistributionChannel'] == 'TA/TO']
-    direct = cl_selected.loc[cl_selected['DistributionChannel'] == 'Direct']
-    corporate = cl_selected.loc[cl_selected['DistributionChannel'] == 'Corporate']
-    gds = cl_selected.loc[cl_selected['DistributionChannel'] == 'GDS']
+    TATO = cl_selected.loc[cl_selected['Distribution Channel'] == 'TA/TO']
+    direct = cl_selected.loc[cl_selected['Distribution Channel'] == 'Direct']
+    corporate = cl_selected.loc[cl_selected['Distribution Channel'] == 'Corporate']
+    gds = cl_selected.loc[cl_selected['Distribution Channel'] == 'GDS']
 
-    tot_dchannel_perc = cl_selected['DistributionChannel'].count()
-    TATO_perc = TATO['DistributionChannel'].count()
-    direct_perc = direct['DistributionChannel'].count()
-    corporate_perc = corporate['DistributionChannel'].count()
-    gds_perc = gds['DistributionChannel'].count()
+    tot_dchannel_perc = cl_selected['Distribution Channel'].count()
+    TATO_perc = TATO['Distribution Channel'].count()
+    direct_perc = direct['Distribution Channel'].count()
+    corporate_perc = corporate['Distribution Channel'].count()
+    gds_perc = gds['Distribution Channel'].count()
 
-    TATO_mean = round(TATO['Upselling'].mean(), ndigits=1)
-    direct_mean = round(direct['Upselling'].mean(), ndigits=1)
-    corporate_mean = round(corporate['Upselling'].mean(), ndigits=1)
-    gds_mean = round(gds['Upselling'].mean(), ndigits=1)
+    TATO_mean = round(TATO['Additional Expenditures'].mean(), ndigits=1)
+    direct_mean = round(direct['Additional Expenditures'].mean(), ndigits=1)
+    corporate_mean = round(corporate['Additional Expenditures'].mean(), ndigits=1)
+    gds_mean = round(gds['Additional Expenditures'].mean(), ndigits=1)
 
-    TATORev_mean = round(TATO['Revenues by day'].mean(), ndigits=1)
-    directRev_mean = round(direct['Revenues by day'].mean(), ndigits=1)
-    corporateRev_mean = round(corporate['Revenues by day'].mean(), ndigits=1)
-    gdsRev_mean = round(gds['Revenues by day'].mean(), ndigits=1)
+    TATORev_mean = round(TATO['ADR'].mean(), ndigits=1)
+    directRev_mean = round(direct['ADR'].mean(), ndigits=1)
+    corporateRev_mean = round(corporate['ADR'].mean(), ndigits=1)
+    gdsRev_mean = round(gds['ADR'].mean(), ndigits=1)
 
-    TATO_rating = round(TATO['Rating'].mean(), ndigits=1)
-    direct_rating = round(direct['Rating'].mean(), ndigits=1)
-    corporate_rating = round(corporate['Rating'].mean(), ndigits=1)
-    gds_rating = round(gds['Rating'].mean(), ndigits=1)
+    TATO_rating = round(TATO['Customer Satisfaction Rating'].mean(), ndigits=1)
+    direct_rating = round(direct['Customer Satisfaction Rating'].mean(), ndigits=1)
+    corporate_rating = round(corporate['Customer Satisfaction Rating'].mean(), ndigits=1)
+    gds_rating = round(gds['Customer Satisfaction Rating'].mean(), ndigits=1)
 
     TATO_nights = round(TATO['Nights'].mean(), ndigits=1)
     direct_nights = round(direct['Nights'].mean(), ndigits=1)
     corporate_nights = round(corporate['Nights'].mean(), ndigits=1)
     gds_nights = round(gds['Nights'].mean(), ndigits=1)
 
-    TATO_wd = round(TATO['StaysInWeekNights'].mean(), ndigits=1)
-    direct_wd = round(direct['StaysInWeekNights'].mean(), ndigits=1)
-    corporate_wd = round(corporate['StaysInWeekNights'].mean(), ndigits=1)
-    gds_wd = round(gds['StaysInWeekNights'].mean(), ndigits=1)
+    TATO_wd = round(TATO['Week Nights'].mean(), ndigits=1)
+    direct_wd = round(direct['Week Nights'].mean(), ndigits=1)
+    corporate_wd = round(corporate['Week Nights'].mean(), ndigits=1)
+    gds_wd = round(gds['Week Nights'].mean(), ndigits=1)
 
-    TATO_we = round(TATO['StaysInWeekendNights'].mean(), ndigits=1)
-    direct_we = round(direct['StaysInWeekendNights'].mean(), ndigits=1)
-    corporate_we = round(corporate['StaysInWeekendNights'].mean(), ndigits=1)
-    gds_we = round(gds['StaysInWeekendNights'].mean(), ndigits=1)
+    TATO_we = round(TATO['Weekend Nights'].mean(), ndigits=1)
+    direct_we = round(direct['Weekend Nights'].mean(), ndigits=1)
+    corporate_we = round(corporate['Weekend Nights'].mean(), ndigits=1)
+    gds_we = round(gds['Weekend Nights'].mean(), ndigits=1)
 
     try:
-        TATO_nation_rev = TATO.groupby('Country')['Revenues by day'].mean().sort_values(ascending=False).index[0]
+        TATO_nation_rev = TATO.groupby('Country')['ADR'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         TATO_nation_rev = 'null'
 
     try:
-        direct_nation_rev = direct.groupby('Country')['Revenues by day'].mean().sort_values(ascending=False).index[0]
+        direct_nation_rev = direct.groupby('Country')['ADR'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         direct_nation_rev = 'null'
 
     try:
         corporate_nation_rev = \
-            corporate.groupby('Country')['Revenues by day'].mean().sort_values(ascending=False).index[0]
+            corporate.groupby('Country')['ADR'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         corporate_nation_rev = 'null'
 
     try:
-        gds_nation_rev = gds.groupby('Country')['Revenues by day'].mean().sort_values(ascending=False).index[0]
+        gds_nation_rev = gds.groupby('Country')['ADR'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         gds_nation_rev = 'null'
 
     try:
-        TATO_nation_rating = TATO.groupby('Country')['Rating'].mean().sort_values(ascending=False).index[0]
+        TATO_nation_rating = TATO.groupby('Country')['Customer Satisfaction Rating'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         TATO_nation_rating = 'null'
 
     try:
-        direct_nation_rating = direct.groupby('Country')['Rating'].mean().sort_values(ascending=False).index[0]
+        direct_nation_rating = direct.groupby('Country')['Customer Satisfaction Rating'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         direct_nation_rating = 'null'
 
     try:
-        corporate_nation_rating = corporate.groupby('Country')['Rating'].mean().sort_values(ascending=False).index[0]
+        corporate_nation_rating = corporate.groupby('Country')['Customer Satisfaction Rating'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         corporate_nation_rating = 'null'
 
     try:
-        gds_nation_rating = gds.groupby('Country')['Rating'].mean().sort_values(ascending=False).index[0]
+        gds_nation_rating = gds.groupby('Country')['Customer Satisfaction Rating'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         gds_nation_rating = 'null'
 
     try:
-        TATO_nation_upselling = TATO.groupby('Country')['Upselling'].mean().sort_values(ascending=False).index[0]
+        TATO_nation_upselling = TATO.groupby('Country')['Additional Expenditures'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         TATO_nation_upselling = 'null'
 
     try:
-        direct_nation_upselling = direct.groupby('Country')['Upselling'].mean().sort_values(ascending=False).index[0]
+        direct_nation_upselling = direct.groupby('Country')['Additional Expenditures'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         direct_nation_upselling = 'null'
 
     try:
         corporate_nation_upselling = \
-            corporate.groupby('Country')['Upselling'].mean().sort_values(ascending=False).index[0]
+            corporate.groupby('Country')['Additional Expenditures'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         corporate_nation_upselling = 'null'
 
     try:
-        gds_nation_upselling = gds.groupby('Country')['Upselling'].mean().sort_values(ascending=False).index[0]
+        gds_nation_upselling = gds.groupby('Country')['Additional Expenditures'].mean().sort_values(ascending=False).index[0]
     except IndexError:
         gds_nation_upselling = 'null'
 
     columns_dc = ['TA/TO', 'Direct', 'Corporate', 'GDS']
-    index_dc = ['Upselling mean', 'Revenues mean', 'Rating mean', 'Length staying mean (days)', ' - N° Weekdays',
-                ' - N° Weekend days', 'Nationality highest revenues', 'Nationality highest rating',
-                'Nationality highest upselling']
+    index_dc = ['Additional Expenditures (mean, DKK)', 'ADR Adjusted (mean, DKK)', 'Satisfaction Rating (mean, 0-10)', 'Staying length (mean, days)', ' - N° Weekdays',
+                ' - N° Weekend days', 'Nationality w/ highest ADR', 'Nationality w/ highest Rating',
+                 'Nationality w/ highest Add. Expend.']
 
     table_dc = pd.DataFrame(data=[
         [TATO_mean, direct_mean, corporate_mean, gds_mean],
@@ -2281,7 +2304,7 @@ def update_table_dchannel(radioItems_clusters_value, start_date, end_date):
         domain=dict(x=[0, .28],
                     y=[0.8, 0.99]),
         header=dict(height=45,
-                    values=['Segments by Distribution Channel'],
+                    values=['Sub-Segments by Distribution Channel'],
                     line=dict(color='#fafafa'),
                     align=['center'],
                     font=dict(color=['black'] * 5, size=16),
@@ -2292,7 +2315,7 @@ def update_table_dchannel(radioItems_clusters_value, start_date, end_date):
     data_donuts_dc1 = {
         "values": [TATO_perc, tot_dchannel_perc - TATO_perc],
         "title": "{0:.1%}".format(TATO_perc / (tot_dchannel_perc)),
-        "labels": ["TA/TO"],
+        "labels": ["TA/TO", "Other"],
         "textposition": "inside",
         "domain": {'x': [0.3594, 0.46875],
                    'y': [0.8135, 1]},
@@ -2310,7 +2333,7 @@ def update_table_dchannel(radioItems_clusters_value, start_date, end_date):
 
     data_donuts_dc2 = {
         "values": [direct_perc, tot_dchannel_perc - direct_perc],
-        "labels": ["Direct"],
+        "labels": ["Direct", "Other"],
         "title": "{0:.1%}".format(direct_perc / (tot_dchannel_perc)),
         "textposition": "inside",
         "domain": {'x': [0.53125, 0.640625],
@@ -2330,7 +2353,7 @@ def update_table_dchannel(radioItems_clusters_value, start_date, end_date):
     data_donuts_dc3 = {
         "values": [corporate_perc, tot_dchannel_perc - corporate_perc],
         "title": "{0:.1%}".format(corporate_perc / (tot_dchannel_perc)),
-        "labels": ["Corporate"],
+        "labels": ["Corporate", "Other"],
         "textposition": "inside",
         "domain": {'x': [0.703125, 0.8125],
                    'y': [0.8135, 1]},
@@ -2348,7 +2371,7 @@ def update_table_dchannel(radioItems_clusters_value, start_date, end_date):
     data_donuts_dc4 = {
         "values": [gds_perc, tot_dchannel_perc - gds_perc],
         "title": "{0:.1%}".format(gds_perc / (tot_dchannel_perc)),
-        "labels": ["GDS"],
+        "labels": ["GDS", "Other"],
         "domain": {'x': [0.875, 1],
                    'y': [0.8135, 1]},
         "name": "GDS",
@@ -2387,30 +2410,30 @@ def update_table_dchannel(radioItems_clusters_value, start_date, end_date):
                dash.dependencies.Input('my-date-picker-range', 'start_date'),
                dash.dependencies.Input('my-date-picker-range', 'end_date')])
 def update_pie_dc(radioItems_clusters_value, start_date, end_date):
-    cl_selected_r = hotel_data.loc[hotel_data['IDlabelsClusters'] == radioItems_clusters_value]
+    cl_selected_r = hotel_data.loc[hotel_data['Cluster'] == radioItems_clusters_value]
     cl_selected = cl_selected_r[
-        (cl_selected_r['TimeArrival'] >= start_date) & (cl_selected_r['TimeArrival'] <= end_date)]
+        (cl_selected_r['Arrival Date'] >= start_date) & (cl_selected_r['Arrival Date'] <= end_date)]
 
-    TATO = cl_selected.loc[cl_selected['DistributionChannel'] == 'TA/TO']
-    direct = cl_selected.loc[cl_selected['DistributionChannel'] == 'Direct']
-    corporate = cl_selected.loc[cl_selected['DistributionChannel'] == 'Corporate']
-    gds = cl_selected.loc[cl_selected['DistributionChannel'] == 'GDS']
+    TATO = cl_selected.loc[cl_selected['Distribution Channel'] == 'TA/TO']
+    direct = cl_selected.loc[cl_selected['Distribution Channel'] == 'Direct']
+    corporate = cl_selected.loc[cl_selected['Distribution Channel'] == 'Corporate']
+    gds = cl_selected.loc[cl_selected['Distribution Channel'] == 'GDS']
 
     # Type of upselling
-    values_upselling_TATO = cl_selected[['Bar', 'Restaurant', 'Other', 'Breakfast', 'Revenues by day']].loc[
-        hotel_data['DistributionChannel'] == 'TA/TO'].sum().copy()
+    values_upselling_TATO = cl_selected[['Bar', 'Restaurant', 'Other', 'Breakfast', 'ADR']].loc[
+        hotel_data['Distribution Channel'] == 'TA/TO'].sum().copy()
     values_upselling_TATO = values_upselling_TATO.tolist()
 
-    values_upselling_direct = hotel_data[['Bar', 'Restaurant', 'Other', 'Breakfast', 'Revenues by day']].loc[
-        hotel_data['DistributionChannel'] == 'Direct'].sum().copy()
+    values_upselling_direct = hotel_data[['Bar', 'Restaurant', 'Other', 'Breakfast', 'ADR']].loc[
+        hotel_data['Distribution Channel'] == 'Direct'].sum().copy()
     values_upselling_direct = values_upselling_direct.tolist()
 
-    values_upselling_corporate = hotel_data[['Bar', 'Restaurant', 'Other', 'Breakfast', 'Revenues by day']].loc[
-        hotel_data['DistributionChannel'] == 'Corporate'].sum().copy()
+    values_upselling_corporate = hotel_data[['Bar', 'Restaurant', 'Other', 'Breakfast', 'ADR']].loc[
+        hotel_data['Distribution Channel'] == 'Corporate'].sum().copy()
     values_upselling_corporate = values_upselling_corporate.tolist()
 
-    values_upselling_gds = hotel_data[['Bar', 'Restaurant', 'Other', 'Breakfast', 'Revenues by day']].loc[
-        hotel_data['DistributionChannel'] == 'GDS'].sum().copy()
+    values_upselling_gds = hotel_data[['Bar', 'Restaurant', 'Other', 'Breakfast', 'ADR']].loc[
+        hotel_data['Distribution Channel'] == 'GDS'].sum().copy()
     values_upselling_gds = values_upselling_gds.tolist()
 
     values_upselling_dc = [values_upselling_TATO, values_upselling_direct, values_upselling_corporate,
@@ -2426,7 +2449,7 @@ def update_pie_dc(radioItems_clusters_value, start_date, end_date):
         "hoverinfo": "values",
         "type": "pie",
         "sort": False,
-        "title": 'Aggregated Expenditures per segment selected',
+        "title": 'Additional Expenditures per selected Sub-Segment',
         "textinfo": "none",
         'marker': {'colors': ['#ffcb94', '#6cff99', '#c5bef1', '#a9efe8', '#dc3d4f']}
     }
@@ -2441,7 +2464,7 @@ def update_pie_dc(radioItems_clusters_value, start_date, end_date):
         "hoverinfo": "values",
         "type": "pie",
         "sort": False,
-        "title": 'Aggregated Expenditures per segment selected',
+        "title": 'Additional Expenditures per selected Sub-Segment',
         "textinfo": "none",
         'marker': {'colors': ['#ffcb94', '#6cff99', '#c5bef1', '#a9efe8', '#dc3d4f']}
     }
@@ -2456,7 +2479,7 @@ def update_pie_dc(radioItems_clusters_value, start_date, end_date):
         "hoverinfo": "values",
         "type": "pie",
         "sort": False,
-        "title": 'Aggregated Expenditures per segment selected',
+        "title": 'Additional Expenditures per selected Sub-Segment',
         "textinfo": "none",
         'marker': {'colors': ['#ffcb94', '#6cff99', '#c5bef1', '#a9efe8', '#dc3d4f']}
     }
@@ -2471,7 +2494,7 @@ def update_pie_dc(radioItems_clusters_value, start_date, end_date):
         "hoverinfo": "values",
         "type": "pie",
         "sort": False,
-        "title": 'Aggregated Expenditures per segment selected',
+        "title": 'Additional Expenditures per selected Sub-Segment',
         "textinfo": "none",
         'marker': {'colors': ['#ffcb94', '#6cff99', '#c5bef1', '#a9efe8', '#dc3d4f']}
     }
@@ -2507,7 +2530,7 @@ def update_pie_dc(radioItems_clusters_value, start_date, end_date):
                      ups_corporate_other_rev_mean]
     ups_gds = [ups_gds_restaurant_rev_mean, ups_gds_bar_rev_mean, ups_gds_breakfast_rev_mean, ups_gds_other_rev_mean]
 
-    ups_tot = hotel_data['Upselling'].sum()
+    ups_tot = hotel_data['Additional Expenditures'].sum()
 
     ups_TATO_restaurant_sum = TATO['Restaurant'].sum()
     ups_direct_restaurant_sum = direct['Restaurant'].sum()
@@ -2626,11 +2649,18 @@ def update_pie_dc(radioItems_clusters_value, start_date, end_date):
                dash.dependencies.Input('my-date-picker-range', 'end_date'),
                dash.dependencies.Input('dropdown_parameters', 'value')])
 def show_map(radioItems_clusters_value, start_date, end_date, dropdown_parameters_value, ):
-    cl_selected_r = hotel_data.loc[hotel_data['IDlabelsClusters'] == radioItems_clusters_value]
+    cl_selected_r = hotel_data.loc[hotel_data['Cluster'] == radioItems_clusters_value]
     cl_selected = cl_selected_r[
-        (cl_selected_r['TimeArrival'] >= start_date) & (cl_selected_r['TimeArrival'] <= end_date)]
+        (cl_selected_r['Arrival Date'] >= start_date) & (cl_selected_r['Arrival Date'] <= end_date)]
     values_choro_r = pd.DataFrame(
-        cl_selected.groupby('Country')[['TOT_revenues', 'Rating', 'Upselling']].mean()).reset_index().copy()
+        cl_selected.groupby('Country')[['ADR Adjusted', 'Customer Satisfaction Rating']].mean()).reset_index().copy()
+
+    values_choro_count_r = pd.DataFrame(cl_selected.groupby('Country')[['ADR Adjusted']].count()).reset_index().copy()
+    values_choro_r['N° Clients (count)'] = values_choro_count_r['ADR Adjusted']
+    values_choro_sum_r = pd.DataFrame(cl_selected.groupby('Country')[['ADR Adjusted']].sum()).reset_index().copy()
+    values_choro_r['ADR Adjusted (total sum)'] = values_choro_sum_r['ADR Adjusted']
+    values_choro_r.rename(columns={'ADR Adjusted': 'ADR Adjusted (mean)', 'Customer Satisfaction Rating': 'Customer Satisfaction Rating (mean)'}, inplace=True)
+
     values_choro_selected = pd.DataFrame(values_choro_r[['Country', dropdown_parameters_value]])
 
     fig = {'data':
@@ -2661,6 +2691,15 @@ def show_map(radioItems_clusters_value, start_date, end_date, dropdown_parameter
 
            'layout': layout_map}
     return fig
+
+
+@app.callback(dash.dependencies.Output('analysis_cluster', 'children'),
+        [dash.dependencies.Input('radioItems_clusters', 'value')])
+def output_analysis_cluster(radioItems_clusters_value):
+    selected_df = hotel_data.loc[hotel_data['Cluster']==radioItems_clusters_value]
+    cl_label = selected_df['Cluster Profile'].unique()[0]
+    output = 'Analysis of the Cluster: {}.'.format(str(cl_label))
+    return output
 
 
 if __name__ == '__main__':
