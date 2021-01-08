@@ -6,7 +6,7 @@ This is the source code I developed to ***showcase*** my dexterity with Data Sci
 The structure of the present repository follows best practices as long as the modules used allow bug-free code (e.g. dash).
 
 ### 📃 app.py
-This is the main dash application running on Flask. It also includes callbakcs for the dynamic features of the web application.
+This is the main dash application running on Flask. It also includes callbacks for the dynamic features of the web application.
 
 ### 📃 settings.py
 It includes settings to be changed depending on whether you are working locally or deploying in production, by simply changing the value of the variable ```ENV```. It automatically sets the ```debug``` variable to ```false``` once in production, due to security concerns. Worth to be noted, this script also includes the code snippet for the PostgreSQL engine, if preferred as alternative. 
