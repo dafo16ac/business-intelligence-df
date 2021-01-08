@@ -38,14 +38,14 @@ app.layout = html.Div(children=[
                'backgroundColor': '#fafafa'}),
 
     dcc.Markdown(dedent(
-        '''Jupyter Notebook with EDA and Preprocesing at the following [link](https://nbviewer.jupyter.org/github/dafo16ac/BI_Market_Segmentation_v1.0/blob/main/BI_Market_Segmentation_Part1_v1.0.ipynb)'''),
+        '''Jupyter Notebook with EDA and Preprocesing at the following [link](https://nbviewer.jupyter.org/github/dafo16ac/BI-Market-Segmentation/blob/main/BI_Market_Segmentation_Part1_v1.0.ipynb)'''),
         style={'textAlign': 'center',
                'color': 'black',
                'fontSize': 12,
                'backgroundColor': '#fafafa'}),
 
     dcc.Markdown(dedent(
-        '''Source code of the web app at the following [repository](https://github.com/dafo16ac/business-intelligence-df-2.2)'''),
+        '''Source code of the web app at the following [repository](https://github.com/dafo16ac/business-intelligence-df)'''),
         style={'textAlign': 'center',
                'color': 'black',
                'fontSize': 12,
@@ -75,7 +75,7 @@ html.Div([
                 {'label': cl_label_5, 'value': 5},
                 {'label': cl_label_6, 'value': 6}],
             labelStyle={#'display': 'inline-block',
-                        'font': 16, 'text-align': 'left'},
+                        'font': 16, 'text-align': 'center'},
             inputStyle={"margin-left": "15px"},  # margin between the select button and the next label
             style={'color': 'white', 'font-size': '16px'},
             className='six columns'),
@@ -130,7 +130,7 @@ html.Div([
 
         dcc.Markdown(dedent('''        
         
-        The present market segmentation dashboard has been developed and deployed with the intention of being as intuitive as possible - as far as a portfolio project allows. Data is segmented based on `ADR` revenues and `Customer Satisfaction Rating`, then shown three-dimension to better visualizing the impact of different sources of revenues.
+        The present market segmentation dashboard has been developed and deployed with the intention of being as intuitive as possible - as far as a portfolio project allows. Data is segmented based on `ADR` revenues and `Customer Satisfaction Rating`, then shown three-dimension to better visualizing the impact of different sources of revenues. The Section below allows for analyzing indipendently.
 
         For deeper explanations on the business case, assumptions, rationale, methodology, .., please read the Notebook at the following [link](https://nbviewer.jupyter.org/github/dafo16ac/BI_Market_Segmentation_v1.0/blob/main/BI_Market_Segmentation_Part1_v1.0.ipynb).
 
