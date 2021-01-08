@@ -87,9 +87,9 @@ html.Div([
 
         dcc.DatePickerRange(
             id='my-date-picker-range',
-            min_date_allowed=dt(2016, 10, 1),
-            max_date_allowed=dt(2016, 11, 30),
-            start_date=dt(2016, 10, 1),
+            min_date_allowed=dt(2016, 7, 1),
+            max_date_allowed=dt(2016, 12, 31),
+            start_date=dt(2016, 8, 1),
             end_date=dt(2016, 11, 30),
             initial_visible_month=dt(2016, 11, 1),
             with_portal=True,
@@ -130,7 +130,7 @@ html.Div([
 
         dcc.Markdown(dedent('''        
         
-        The present market segmentation dashboard has been developed and deployed with the intention of being as intuitive as possible - as far as a portfolio project allows. Data is segmented based on `ADR` revenues and `Customer Satisfaction Rating`, then shown three-dimension to better visualizing the impact of different sources of revenues. The Section below allows for analyzing indipendently.
+        The present market segmentation dashboard has been developed and deployed with the intention of being as intuitive as possible - as far as a portfolio project allows. Data is segmented based on `ADR` revenues and `Customer Satisfaction Rating`, then shown three-dimension to better visualizing the impact of different sources of revenues. The Section below allows for analyzing the data indipendently.
 
         For deeper explanations on the business case, assumptions, rationale, methodology, .., please read the Notebook at the following [link](https://nbviewer.jupyter.org/github/dafo16ac/BI_Market_Segmentation_v1.0/blob/main/BI_Market_Segmentation_Part1_v1.0.ipynb).
 
