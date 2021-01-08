@@ -132,7 +132,7 @@ html.Div([
         
         The present market segmentation dashboard has been developed and deployed with the intention of being as intuitive as possible - as far as a portfolio project allows. Data is segmented based on `ADR` revenues and `Customer Satisfaction Rating`, then shown three-dimension to better visualizing the impact of different sources of revenues. The Section below allows for analyzing the data indipendently.
 
-        For deeper explanations on the business case, assumptions, rationale, methodology, .., please read the Notebook at the following [link](https://nbviewer.jupyter.org/github/dafo16ac/BI_Market_Segmentation_v1.0/blob/main/BI_Market_Segmentation_Part1_v1.0.ipynb).
+        For deeper explanations on the business case, assumptions, rationale, methodology, .., please read the Notebook at the following [link](https://nbviewer.jupyter.org/github/dafo16ac/BI-Market-Segmentation/blob/main/BI_Market_Segmentation_Part1_v1.0.ipynb).
 
         For a quick view on the definitions of the terms used in this page, please refer to the *Terminology* section at the bottom of the web app.
 
