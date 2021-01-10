@@ -92,8 +92,8 @@ html.Div([
             min_date_allowed=dt(2016, 7, 1),
             max_date_allowed=dt(2016, 12, 31),
             start_date=dt(2016, 8, 1),
-            end_date=dt(2016, 11, 30),
-            initial_visible_month=dt(2016, 11, 1),
+            end_date=dt(2016, 12, 7),
+            initial_visible_month=dt(2016, 7, 1),
             with_portal=True,
             className='one row',
             style={'fontSize': '11px', 'textAlign': 'center', 'padding': 30}
