@@ -38,7 +38,7 @@ app.layout = html.Div(children=[
                'backgroundColor': '#fafafa'}),
 
     dcc.Markdown(dedent(
-        '''Jupyter Notebook with EDA and Preprocesing at the following [link](https://nbviewer.jupyter.org/github/dafo16ac/BI-Market-Segmentation/blob/main/BI_Market_Segmentation_Part1_v1.0.ipynb)'''),
+        '''Jupyter Notebook with related and precursory Data Science project at the following [link](https://nbviewer.jupyter.org/github/dafo16ac/DS-market-segmentation/blob/main/Part1_DS_Market_Segmentation_v1.0.ipynb)'''),
         style={'textAlign': 'center',
                'color': 'black',
                'fontSize': 12,
@@ -76,14 +76,16 @@ html.Div([
                 {'label': cl_label_6, 'value': 6}],
             labelStyle={#'display': 'inline-block',
                         'font': 16, 'text-align': 'center'},
-            inputStyle={"margin-left": "15px"},  # margin between the select button and the next label
+            inputStyle={"margin-left": "15px", "margin-bottom": "16px"},  # margin between the select button and the next label
             style={'color': 'white', 'font-size': '16px'},
             className='six columns'),
 
         html.Div([
-        html.P('I ',
+
+            html.P('I ',
                style={'backgroundColor':'#96151d', 'font-size': '32px', 'color': '#96151d', 'textAlign': 'left'},
                className='two rows'),
+
 
         dcc.DatePickerRange(
             id='my-date-picker-range',
@@ -94,12 +96,17 @@ html.Div([
             initial_visible_month=dt(2016, 11, 1),
             with_portal=True,
             className='one row',
-            style={'fontSize': '11px', 'textAlign': 'center'}
+            style={'fontSize': '11px', 'textAlign': 'center', 'padding': 30}
         ),
             ], className='four columns'),
-    ], style={'backgroundColor': '#96151d', 'fontSize': 14, 'padding': 10,  'borderRadius': 1,#'border': '2px red solid',
+    ], style={'backgroundColor': '#96151d', 'fontSize': 14,  'borderRadius': 1,#'border': '2px red solid',
               'margin-bottom': '2rem', 'margin-top': '2rem'}, className='ten columns'),
     ], className="row"),
+
+    html.Div([
+    html.P('I  ',
+           style={'backgroundColor':'#fafafa', 'font-size': '30px', 'color': '#fafafa', 'textAlign': 'left'},
+           className='one row'),], className='row'),
 
     html.Div([
         dcc.Graph(
@@ -130,7 +137,7 @@ html.Div([
 
         dcc.Markdown(dedent('''        
         
-        The present market segmentation dashboard has been developed and deployed with the intention of being as intuitive as possible - as far as a portfolio project allows. Data is segmented based on `ADR` revenues and `Customer Satisfaction Rating`, then shown three-dimension to better visualizing the impact of different sources of revenues. The Section below allows for analyzing the data indipendently.
+        The present market segmentation dashboard has been developed and deployed with the intention of being as intuitive as possible - as far as a portfolio project allows. Data is segmented using Spectral Clustering algorithm based on `ADR` revenues and `Customer Satisfaction Rating`. Here is shown three-dimensionally to better visualizing the impact of different sources of revenues. The Section below allows for indipendently analyzing the data.
 
         For deeper explanations on the business case, assumptions, rationale, methodology, .., please read the Notebook at the following [link](https://nbviewer.jupyter.org/github/dafo16ac/BI-Market-Segmentation/blob/main/BI_Market_Segmentation_Part1_v1.0.ipynb).
 
@@ -139,7 +146,7 @@ html.Div([
 
        
 
-        '''), style={'textAlign': 'center', 'fontSize': 15, 'marginTop': 110, 'marginBottom': 10}, className="four columns")
+        '''), style={'textAlign': 'center', 'fontSize': 15, 'marginTop': 90, 'marginBottom': 10}, className="four columns")
     ], className="row"),
 
     html.Div([
@@ -177,7 +184,7 @@ html.Div([
                 id='map-world',
                 config={'displayModeBar': False},
                 figure={
-                    'data': data_map_revenues,  # set to show something at the starting
+                    'data': data_map_rating,  # set to show something at the starting
                     'layout': layout_map},
                 className='one row'
             ),

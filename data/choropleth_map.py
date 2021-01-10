@@ -69,7 +69,7 @@ data_map_rating = [go.Choropleth(
         title='Aggregated Revenues'),
 )]
 
-data_map_upselling = [go.Choropleth(
+data_map_upselling = [go.Choropleth(   # wrongly label var. Now it is Total sum ADR
     locations=values_choro['Country'],
     z=values_choro['ADR Adjusted (total sum)'],
     # text = final_hotel['Country'],
