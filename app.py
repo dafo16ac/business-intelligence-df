@@ -76,7 +76,7 @@ html.Div([
                 {'label': cl_label_6, 'value': 6}],
             labelStyle={#'display': 'inline-block',
                         'font': 16, 'text-align': 'center'},
-            inputStyle={"margin-left": "15px", "margin-bottom": "16px"},  # margin between the select button and the next label
+            inputStyle={"margin-left": "15px", "margin-bottom": "13px"},  # margin between the select button and the next label
             style={'color': 'white', 'font-size': '16px'},
             className='six columns'),
 
@@ -139,7 +139,7 @@ html.Div([
         
         The present market segmentation dashboard has been developed and deployed with the intention of being as intuitive as possible - as far as a portfolio project allows. Data is segmented using Spectral Clustering algorithm based on `ADR` revenues and `Customer Satisfaction Rating`. Here is shown three-dimensionally to better visualizing the impact of different sources of revenues. The Section below allows for indipendently analyzing the data.
 
-        For deeper explanations on the business case, assumptions, rationale, methodology, .., please read the Notebook at the following [link](https://nbviewer.jupyter.org/github/dafo16ac/BI-Market-Segmentation/blob/main/BI_Market_Segmentation_Part1_v1.0.ipynb).
+        For deeper explanations on the business case, assumptions, rationale, methodology, .., please read the Notebook at the following [link](https://nbviewer.jupyter.org/github/dafo16ac/DS-market-segmentation/blob/main/Part1_DS_Market_Segmentation_v1.0.ipynb).
 
         For a quick view on the definitions of the terms used in this page, please refer to the *Terminology* section at the bottom of the web app.
 
