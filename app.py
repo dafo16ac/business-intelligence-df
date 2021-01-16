@@ -31,7 +31,7 @@ app.layout = html.Div(children=[
                    'backgroundColor': '#fafafa'}),
 
     dcc.Markdown(dedent(
-        '''Developed by [Davide Fogarolo](https://www.linkedin.com/in/davide-fogarolo) (first released in 2019)'''),
+        '''Developed by [Davide Fogarolo](https://www.linkedin.com/in/davide-fogarolo)'''),
         style={'textAlign': 'center',
                'color': 'black',
                'fontSize': 12,
@@ -396,6 +396,7 @@ html.Div([
         ], className='six columns'),
     ], className='one row'),
 
+
     html.Div([
         dcc.Markdown(dedent('''
 
@@ -418,7 +419,14 @@ html.Div([
 
 
 
-        '''))
+        ''')),
+
+        dcc.Markdown(dedent(
+        '''First Deployed in 2019. Last updated in 2021.'''),
+        style={'textAlign': 'center',
+               'fontSize': 9,
+               }),
+
     ], style={'marginLeft': 5}, className='one row')
 ],
     style={'marginLeft': 0, 'padding': 0}, )
